@@ -4,20 +4,29 @@ import List from './List';
 
 function App() {
   const [item, setItem] = useState('');
-  const [itemsList] = useState([]);
+  const [itemsList, setItemList] = useState([]);
+  const uid = function () {
+    return Date.now().toString(36) + Math.random().toString(36).substr(2);
+  };
 
   function createListItem() {
     if (validate()) {
-      itemsList.push(item);
+      itemsList.push({ id: uid(), name: item });
       setItem('');
     } else {
       alert('?');
     }
   }
 
+  function removeHandler(id) {
+    let list = itemsList.filter(el => el.id !== id);
+    setItemList(list);
+  }
+
   function validate() {
     return item !== '';
   }
+
   return (
     <div className="wrapper">
       <div>
@@ -27,7 +36,7 @@ function App() {
       <div>
         <input type="text" value={item} onChange={event => setItem(event.target.value)} />
         <button onClick={() => createListItem()}>Добавить</button>
-        <List list={itemsList} />
+        <List removeHandler={removeHandler} list={itemsList} />
       </div>
     </div>
   );
