@@ -40,6 +40,7 @@ function App() {
   function changeState(id, state) {
     let item = itemsList.find(i => i.id === id);
     item.isDone = state;
+    setItemList([...itemsList]);
   }
 
   return (

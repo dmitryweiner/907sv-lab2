@@ -10,10 +10,12 @@ export default function ListItem({ item, removeHandler, changeState }) {
       <li style={doneStyles()}>{item.name}</li>
       <input
         type="checkbox"
-        checked={item.isDone}
+        checked={isDone}
         onChange={() => {
-          changeState(item.id, !isDone);
-          setIsDone(isDone => !isDone);
+          setIsDone(isDone => {
+            changeState(item.id, !isDone);
+            return !isDone;
+          });
         }}
       />
       <button onClick={() => removeHandler(item.id)}>Remove</button>
