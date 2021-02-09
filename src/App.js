@@ -9,6 +9,11 @@ function App() {
   const uid = function () {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
   };
+  const filterValues = {
+    ALL: 'all',
+    DONE: 'done',
+    NOT_DONE: 'not done'
+  };
 
   function createListItem() {
     if (validate()) {
@@ -29,18 +34,23 @@ function App() {
   }
 
   function filterList(c) {
-    if (c === 'done') {
+    if (c === 'DONE') {
       return el => el.isDone;
-    } else if (c === 'notDone') {
+    } else if (c === 'NOT_DONE') {
       return el => !el.isDone;
     }
     return () => true;
   }
 
   function changeState(id, state) {
-    let item = itemsList.find(i => i.id === id);
-    item.isDone = state;
-    setItemList([...itemsList]);
+    setItemList(
+      itemsList.map(item => {
+        if (item.id === id) {
+          item.isDone = state;
+        }
+        return item;
+      })
+    );
   }
 
   return (
@@ -59,9 +69,11 @@ function App() {
             setFilter(e.target.value);
           }}
         >
-          <option value="all">All</option>
-          <option value="done">Done</option>
-          <option value="notDone">Not Done</option>
+          {Object.keys(filterValues).map((filterItem, index) => (
+            <option key={index} value={filterItem}>
+              {filterValues[filterItem]}
+            </option>
+          ))}
         </select>
         <List
           changeState={changeState}

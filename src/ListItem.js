@@ -1,22 +1,14 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function ListItem({ item, removeHandler, changeState }) {
-  const [isDone, setIsDone] = useState(item.isDone);
-  function doneStyles() {
-    return item.isDone ? { textDecoration: 'line-through' } : {};
-  }
+  const isDone = { textDecoration: 'line-through' };
   return (
     <>
-      <li style={doneStyles()}>{item.name}</li>
+      <li style={item.isDone ? isDone : {}}>{item.name}</li>
       <input
         type="checkbox"
-        checked={isDone}
-        onChange={() => {
-          setIsDone(isDone => {
-            changeState(item.id, !isDone);
-            return !isDone;
-          });
-        }}
+        checked={item.isDone}
+        onChange={() => changeState(item.id, !item.isDone)}
       />
       <button onClick={() => removeHandler(item.id)}>Remove</button>
     </>
