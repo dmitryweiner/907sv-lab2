@@ -34,9 +34,9 @@ function App() {
   }
 
   function filterList(c) {
-    if (c === 'DONE') {
+    if (c === filterValues.DONE) {
       return el => el.isDone;
-    } else if (c === 'NOT_DONE') {
+    } else if (c === filterValues.NOT_DONE) {
       return el => !el.isDone;
     }
     return () => true;
@@ -70,7 +70,7 @@ function App() {
           }}
         >
           {Object.keys(filterValues).map((filterItem, index) => (
-            <option key={index} value={filterItem}>
+            <option key={index} value={filterValues[filterItem]}>
               {filterValues[filterItem]}
             </option>
           ))}
