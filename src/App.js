@@ -69,9 +69,9 @@ function App() {
             setFilter(e.target.value);
           }}
         >
-          {Object.keys(filterValues).map((filterItem, index) => (
-            <option key={index} value={filterValues[filterItem]}>
-              {filterValues[filterItem]}
+          {Object.values(filterValues).map((filterItem, index) => (
+            <option key={index} value={filterItem}>
+              {filterItem}
             </option>
           ))}
         </select>
