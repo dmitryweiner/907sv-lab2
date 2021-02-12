@@ -53,6 +53,17 @@ function App() {
     );
   }
 
+  function editName(id, name) {
+    setItemList(
+      itemsList.map(item => {
+        if (item.id === id) {
+          item.name = name;
+        }
+        return item;
+      })
+    );
+  }
+
   return (
     <div className="wrapper">
       <div>
@@ -80,6 +91,7 @@ function App() {
           removeHandler={removeHandler}
           list={itemsList}
           filterItem={filterList(filter)}
+          editName={editName}
         />
       </div>
     </div>

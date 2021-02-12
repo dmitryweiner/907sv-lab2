@@ -1,7 +1,7 @@
 import React from 'react';
 import ListItem from './ListItem';
 
-export default function List({ list, removeHandler, filterItem, changeState }) {
+export default function List({ list, removeHandler, filterItem, changeState, editName }) {
   return (
     <ul>
       {list.filter(filterItem).map(item => (
@@ -10,6 +10,7 @@ export default function List({ list, removeHandler, filterItem, changeState }) {
           item={item}
           removeHandler={removeHandler}
           changeState={changeState}
+          editName={editName}
         />
       ))}
     </ul>
