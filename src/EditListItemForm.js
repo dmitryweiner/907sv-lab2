@@ -13,10 +13,8 @@ export default function EditListItem({ item, editName, closeItem }) {
   function blurHandler(e) {
     if (e.relatedTarget === button.current) {
       editName(item.id, name);
-      closeItem();
-    } else {
-      closeItem();
     }
+    closeItem();
   }
 
   return (
