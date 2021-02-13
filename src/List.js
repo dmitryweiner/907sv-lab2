@@ -9,23 +9,21 @@ export default function List({
   editName,
   changePosition
 }) {
+  let items = list.filter(filterItem).sort((el1, el2) => el1.position - el2.position);
   return (
     <ul>
-      {list
-        .filter(filterItem)
-        .sort((el1, el2) => el1.position - el2.position)
-        .map((item, index) => (
-          <ListItem
-            key={item.id}
-            item={item}
-            removeHandler={removeHandler}
-            changeState={changeState}
-            editName={editName}
-            changePosition={changePosition}
-            isFirst={index === 0}
-            isLast={index === list.length - 1}
-          />
-        ))}
+      {items.map((item, index) => (
+        <ListItem
+          key={item.id}
+          item={item}
+          removeHandler={removeHandler}
+          changeState={changeState}
+          editName={editName}
+          changePosition={changePosition}
+          isFirst={index === 0}
+          isLast={index === items.length - 1}
+        />
+      ))}
     </ul>
   );
 }
