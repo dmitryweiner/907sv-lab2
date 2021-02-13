@@ -1,7 +1,15 @@
 import React, { useState } from 'react';
 import EditListItem from './EditListItemForm';
 
-export default function ListItem({ item, removeHandler, changeState, editName }) {
+export default function ListItem({
+  item,
+  removeHandler,
+  changeState,
+  editName,
+  changePosition,
+  isFirst,
+  isLast
+}) {
   const isDone = { textDecoration: 'line-through' };
   const [isEdit, setIsEdit] = useState('');
 
@@ -18,6 +26,8 @@ export default function ListItem({ item, removeHandler, changeState, editName })
       />
       <button onClick={() => removeHandler(item.id)}>Remove</button>
       <button onClick={() => setIsEdit(!isEdit)}>{!isEdit ? 'Edit' : 'Cancel'}</button>
+      {!isFirst && <button onClick={() => changePosition(item.id, +1)}>↑</button>}
+      {!isLast && <button onClick={() => changePosition(item.id, -1)}>↓</button>}
     </>
   );
 }
