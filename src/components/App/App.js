@@ -148,7 +148,7 @@ function App() {
         <br />
         <SearchPanel filter={searchFilter} />
         <br />
-        <List list={itemsList} filterItem={filterList} dispatch={action => dispatch(action)} />
+        <List list={itemsList} filterItem={filterList} dispatch={dispatch} />
       </div>
     </div>
   );

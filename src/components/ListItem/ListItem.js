@@ -13,7 +13,7 @@ export default function ListItem({ item, isFirst, isLast, dispatch }) {
         </li>
       )}
       {isEdit && (
-        <EditListItem item={item} editName={dispatch} closeItem={() => setIsEdit(false)} />
+        <EditListItem item={item} dispatch={dispatch} closeItem={() => setIsEdit(false)} />
       )}
       <input
         type="checkbox"

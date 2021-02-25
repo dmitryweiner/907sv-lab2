@@ -6,13 +6,13 @@ export default function EditListItem({ item, dispatch, closeItem }) {
 
   function submitHandler(e) {
     e.preventDefault();
-    dispatch({ itemId: item.id, itemName: item.name, name: 'edit' });
+    dispatch({ itemId: item.id, itemName: name, name: 'edit' });
     closeItem();
   }
 
   function blurHandler(e) {
     if (e.relatedTarget === button.current) {
-      dispatch({ itemId: item.id, itemName: item.name, name: 'edit' });
+      dispatch({ itemId: item.id, itemName: name, name: 'edit' });
     }
     closeItem();
   }
