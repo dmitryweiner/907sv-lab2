@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
-import List from './List';
-import SearchPanel from './SearchPanel';
+import List from '../List/List';
+import SearchPanel from '../SearchPanel/SearchPanel';
 
 function App() {
   const [item, setItem] = useState('');

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import EditListItem from './EditListItemForm';
+import EditListItem from '../EditListItemForm/EditListItemForm';
 
 export default function ListItem({ item, isFirst, isLast, dispatch }) {
   const isDone = { textDecoration: 'line-through' };
