@@ -15,7 +15,11 @@ export default function ListItem({
 
   return (
     <>
-      {!isEdit && <li style={item.isDone ? isDone : {}}>{item.name}</li>}
+      {!isEdit && (
+        <li data-testid="list-item" style={item.isDone ? isDone : {}}>
+          {item.name}
+        </li>
+      )}
       {isEdit && (
         <EditListItem item={item} editName={editName} closeItem={() => setIsEdit(false)} />
       )}
@@ -26,8 +30,16 @@ export default function ListItem({
       />
       <button onClick={() => removeHandler(item.id)}>Remove</button>
       <button onClick={() => setIsEdit(!isEdit)}>{!isEdit ? 'Edit' : 'Cancel'}</button>
-      {!isFirst && <button onClick={() => changePosition(item.id, +1)}>↑</button>}
-      {!isLast && <button onClick={() => changePosition(item.id, -1)}>↓</button>}
+      {!isFirst && (
+        <button data-testid="up" onClick={() => changePosition(item.id, +1)}>
+          ↑
+        </button>
+      )}
+      {!isLast && (
+        <button data-testid="down" onClick={() => changePosition(item.id, -1)}>
+          ↓
+        </button>
+      )}
     </>
   );
 }

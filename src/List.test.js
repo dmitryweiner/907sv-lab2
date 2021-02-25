@@ -1,20 +1,24 @@
 import List from './List';
-import { shallow, configure } from 'enzyme/build';
-import Adapter from 'enzyme-adapter-react-16';
 import React from 'react';
-
-configure({ adapter: new Adapter() });
+import { render, screen } from '@testing-library/react';
 
 describe('ListTests', () => {
   test('pass two items', () => {
-    const list = [1, 2];
-    const component = shallow(<List list={list} />);
-    expect(component.find('ListItem')).toHaveLength(2);
+    const list = [
+      { id: 0, name: 'hello', isDone: false, position: 10 },
+      { id: 1, name: 'hello', isDone: false, position: 11 }
+    ];
+    const filterItem = () => true;
+    render(<List filterItem={filterItem} list={list} />);
+    const elements = screen.getAllByTestId('list-item');
+    expect(elements).toHaveLength(list.length);
   });
 
   test('pass empty list', () => {
     const list = [];
-    const component = shallow(<List list={list} />);
-    expect(component.find('ListItem')).toHaveLength(0);
+    const filterItem = () => true;
+    render(<List filterItem={filterItem} list={list} />);
+    const elements = screen.queryAllByTestId('list-item');
+    expect(elements).toHaveLength(list.length);
   });
 });

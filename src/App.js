@@ -8,7 +8,7 @@ function App() {
   const [position, setPosition] = useState(0);
   const [itemsList, setItemList] = useState([]);
   const [filter, setFilter] = useState('all');
-  const [search, setSearch] = useState('');
+  const [setSearch] = useState('');
   const uid = function () {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
   };
@@ -28,6 +28,10 @@ function App() {
     }
   }
 
+  function validate() {
+    return item !== '';
+  }
+  /*
   function changePosition(id, number) {
     let previous;
     let current;
@@ -104,9 +108,23 @@ function App() {
       })
     );
   }
-
+*/
   function searchFilter(name) {
     setSearch(name);
+  }
+
+  function reducer(action, previousList = []) {
+    switch (action.name) {
+      case 'remove': {
+        return [...previousList.filter(el => el.id !== action.payload)];
+      }
+      default:
+        return [...previousList];
+    }
+  }
+
+  function dispatch(action) {
+    setItemList(reducer(action, itemsList));
   }
 
   return (
@@ -134,14 +152,7 @@ function App() {
         <br />
         <SearchPanel filter={searchFilter} />
         <br />
-        <List
-          changeState={changeState}
-          removeHandler={removeHandler}
-          list={itemsList}
-          filterItem={filterList(filter)}
-          editName={editName}
-          changePosition={changePosition}
-        />
+        <List list={itemsList} dispatch={action => dispatch(action)} />
       </div>
     </div>
   );

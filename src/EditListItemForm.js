@@ -19,7 +19,7 @@ export default function EditListItem({ item, editName, closeItem }) {
 
   return (
     <div>
-      <form action="" onSubmit={e => submitHandler(e)}>
+      <form data-testid="editForm" action="" onSubmit={e => submitHandler(e)}>
         <input
           type="text"
           value={name}
