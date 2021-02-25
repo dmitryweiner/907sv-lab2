@@ -1,5 +1,8 @@
 import React from 'react';
 import './App.css';
+import Button from './components/Button';
+import List from './components/List';
+import Form from './components/Form';
 
 function App() {
   return (
@@ -9,26 +12,9 @@ function App() {
         <h2>Лабораторная №2. Динамический список</h2>
       </div>
       <div>
-        <input type="text" />
-        <button>Добавить</button>
-        <ul>
-          <li>
-            Купить картошки
-            <button>[x]</button>
-          </li>
-          <li>
-            Помыть пол
-            <button>[x]</button>
-          </li>
-          <li>
-            Покормить рыб
-            <button>[x]</button>
-          </li>
-          <li>
-            Выгулять кошку
-            <button>[x]</button>
-          </li>
-        </ul>
+        <Form></Form>
+        <Button title={'Добавить'}></Button>
+        <List />
       </div>
     </div>
   );
