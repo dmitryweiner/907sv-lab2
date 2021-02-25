@@ -1,15 +1,7 @@
 import React, { useState } from 'react';
 import EditListItem from './EditListItemForm';
 
-export default function ListItem({
-  item,
-  removeHandler,
-  changeState,
-  editName,
-  changePosition,
-  isFirst,
-  isLast
-}) {
+export default function ListItem({ item, isFirst, isLast, dispatch }) {
   const isDone = { textDecoration: 'line-through' };
   const [isEdit, setIsEdit] = useState('');
 
@@ -21,22 +13,30 @@ export default function ListItem({
         </li>
       )}
       {isEdit && (
-        <EditListItem item={item} editName={editName} closeItem={() => setIsEdit(false)} />
+        <EditListItem item={item} editName={dispatch} closeItem={() => setIsEdit(false)} />
       )}
       <input
         type="checkbox"
         checked={item.isDone}
-        onChange={() => changeState(item.id, !item.isDone)}
+        onChange={() =>
+          dispatch({ name: 'changeState', itemId: item.id, itemIsDone: !item.isDone })
+        }
       />
-      <button onClick={() => removeHandler(item.id)}>Remove</button>
+      <button onClick={() => dispatch({ name: 'remove', itemId: item.id })}>Remove</button>
       <button onClick={() => setIsEdit(!isEdit)}>{!isEdit ? 'Edit' : 'Cancel'}</button>
       {!isFirst && (
-        <button data-testid="up" onClick={() => changePosition(item.id, +1)}>
+        <button
+          data-testid="up"
+          onClick={() => dispatch({ name: 'changePosition', itemId: item.id, itemNumber: 1 })}
+        >
           ↑
         </button>
       )}
       {!isLast && (
-        <button data-testid="down" onClick={() => changePosition(item.id, -1)}>
+        <button
+          data-testid="down"
+          onClick={() => dispatch({ name: 'changePosition', itemId: item.id, itemNumber: -1 })}
+        >
           ↓
         </button>
       )}

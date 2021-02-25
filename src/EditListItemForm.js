@@ -1,18 +1,18 @@
 import React, { useState, useRef } from 'react';
 
-export default function EditListItem({ item, editName, closeItem }) {
+export default function EditListItem({ item, dispatch, closeItem }) {
   const [name, setName] = useState(item.name);
   const button = useRef(null);
 
   function submitHandler(e) {
     e.preventDefault();
-    editName(item.id, name);
+    dispatch({ itemId: item.id, itemName: item.name, name: 'edit' });
     closeItem();
   }
 
   function blurHandler(e) {
     if (e.relatedTarget === button.current) {
-      editName(item.id, name);
+      dispatch({ itemId: item.id, itemName: item.name, name: 'edit' });
     }
     closeItem();
   }

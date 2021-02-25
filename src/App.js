@@ -8,7 +8,7 @@ function App() {
   const [position, setPosition] = useState(0);
   const [itemsList, setItemList] = useState([]);
   const [filter, setFilter] = useState('all');
-  const [setSearch] = useState('');
+  const [search, setSearch] = useState('');
   const uid = function () {
     return Date.now().toString(36) + Math.random().toString(36).substr(2);
   };
@@ -31,7 +31,7 @@ function App() {
   function validate() {
     return item !== '';
   }
-  /*
+
   function changePosition(id, number) {
     let previous;
     let current;
@@ -66,16 +66,7 @@ function App() {
     elms[previous].position = elms[current].position;
     elms[current].position = temp;
 
-    setItemList(elms.map(el => el));
-  }
-
-  function removeHandler(id) {
-    const withoutDeleted = itemsList.filter(el => el.id !== id);
-    setItemList(withoutDeleted);
-  }
-
-  function validate() {
-    return item !== '';
+    return [...elms];
   }
 
   function filterList(c) {
@@ -87,28 +78,6 @@ function App() {
     return el => el.name.includes(search);
   }
 
-  function changeState(id, state) {
-    setItemList(
-      itemsList.map(item => {
-        if (item.id === id) {
-          item.isDone = state;
-        }
-        return item;
-      })
-    );
-  }
-
-  function editName(id, name) {
-    setItemList(
-      itemsList.map(item => {
-        if (item.id === id) {
-          item.name = name;
-        }
-        return item;
-      })
-    );
-  }
-*/
   function searchFilter(name) {
     setSearch(name);
   }
@@ -116,8 +85,35 @@ function App() {
   function reducer(action, previousList = []) {
     switch (action.name) {
       case 'remove': {
-        return [...previousList.filter(el => el.id !== action.payload)];
+        return [...previousList.filter(el => el.id !== action.itemId)];
       }
+
+      case 'changePosition': {
+        return changePosition(action.itemId, action.itemNumber);
+      }
+
+      case 'changeState': {
+        return [
+          ...previousList.map(item => {
+            if (item.id === action.itemId) {
+              item.isDone = action.itemIsDone;
+            }
+            return item;
+          })
+        ];
+      }
+
+      case 'edit': {
+        return [
+          ...previousList.map(item => {
+            if (item.id === action.itemId) {
+              item.name = action.itemName;
+            }
+            return item;
+          })
+        ];
+      }
+
       default:
         return [...previousList];
     }
@@ -152,7 +148,7 @@ function App() {
         <br />
         <SearchPanel filter={searchFilter} />
         <br />
-        <List list={itemsList} dispatch={action => dispatch(action)} />
+        <List list={itemsList} filterItem={filterList} dispatch={action => dispatch(action)} />
       </div>
     </div>
   );
