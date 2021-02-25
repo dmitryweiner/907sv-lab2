@@ -34,4 +34,4 @@ npm start
 ```
 
 ## Запуск тестов
-```npm test```
+```npm run test```
