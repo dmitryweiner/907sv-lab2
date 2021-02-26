@@ -2,13 +2,13 @@ import React, { useState } from 'react';
 import './App.css';
 import List from '../List/List';
 import SearchPanel from '../SearchPanel/SearchPanel';
-import reducer from '../store';
+import reducer from '../../store';
 import CreateForm from '../CreateForm/CreateForm';
 import CategorySelect from '../CategorySelect/CategorySelect';
 
 function App() {
   const [itemsList, setItemList] = useState([]);
-  const [search, setSearch] = useState('');
+  const [search] = useState('');
 
   const filterValues = {
     ALL: 'all',
@@ -25,10 +25,6 @@ function App() {
     return el => el.name.includes(search);
   }
 
-  function searchFilter(name) {
-    setSearch(name);
-  }
-
   function dispatch(action) {
     setItemList(reducer(action, itemsList));
   }
@@ -43,7 +39,7 @@ function App() {
         <CreateForm create={dispatch} />
         <CategorySelect filterValues={filterValues} />
         <br />
-        <SearchPanel filter={searchFilter} />
+        <SearchPanel filter={dispatch} />
         <br />
         <List list={itemsList} filterItem={filterList} dispatch={dispatch} />
       </div>
