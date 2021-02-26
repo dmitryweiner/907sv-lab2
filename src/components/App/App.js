@@ -4,11 +4,10 @@ import List from '../List/List';
 import SearchPanel from '../SearchPanel/SearchPanel';
 import reducer from '../store';
 import CreateForm from '../CreateForm/CreateForm';
+import CategorySelect from '../CategorySelect/CategorySelect';
 
 function App() {
-  //const [item, setItem] = useState('');
   const [itemsList, setItemList] = useState([]);
-  const [filter, setFilter] = useState('all');
   const [search, setSearch] = useState('');
 
   const filterValues = {
@@ -42,19 +41,7 @@ function App() {
       </div>
       <div>
         <CreateForm create={dispatch} />
-        <select
-          name="select"
-          value={filter}
-          onChange={e => {
-            setFilter(e.target.value);
-          }}
-        >
-          {Object.values(filterValues).map((filterItem, index) => (
-            <option key={index} value={filterItem}>
-              {filterItem}
-            </option>
-          ))}
-        </select>
+        <CategorySelect filterValues={filterValues} />
         <br />
         <SearchPanel filter={searchFilter} />
         <br />
