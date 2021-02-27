@@ -4,49 +4,51 @@ import { render, screen, fireEvent } from '@testing-library/react';
 
 describe('ListItemTests', () => {
   test('pass value', () => {
-    const value = { id: 0, name: 'hello', isDone: false, position: 10 };
+    const value = { id: '0', name: 'hello', isDone: false, position: 10 };
     render(<ListItem item={value} />);
-    const linkElement = screen.getByText(/hello/i);
+    const linkElement = screen.getByText(value.name);
     expect(linkElement).toBeInTheDocument();
   });
 
   test('click Edit button', () => {
-    const value = { id: 0, name: 'hello', isDone: false, position: 10 };
+    const value = { id: '0', name: 'hello', isDone: false, position: 10 };
 
     render(<ListItem item={value} />);
-    const linkElement = screen.getByText(/hello/i);
-    expect(linkElement).toBeInTheDocument();
-    fireEvent.click(screen.getByText(/Edit/i));
+    fireEvent.click(screen.getByTestId('edit-cancel-button'));
     expect(screen.getByTestId('editForm')).toBeInTheDocument();
   });
 
   test('remove item', () => {
-    const value = { id: 0, name: 'hello', isDone: false, position: 10 };
-    const handleClick = jest.fn();
-    render(<ListItem removeHandler={handleClick} item={value} />);
-    const linkElement = screen.getByText(/hello/i);
-    expect(linkElement).toBeInTheDocument();
+    const value = { id: '0', name: 'hello', isDone: false, position: 10 };
+    const dispatchHandler = jest.fn();
+    render(<ListItem dispatch={dispatchHandler} item={value} />);
 
-    const element = screen.getByText(/Remove/i);
+    const element = screen.getByTestId('remove-button');
     fireEvent.click(element);
-    expect(handleClick).toBeCalled();
+    expect(dispatchHandler).toBeCalledWith({ name: 'remove', itemId: value.id });
   });
 
   test('change position item', () => {
-    const value = { id: 0, name: 'hello', isDone: false, position: 10 };
-    const changePosition = jest.fn();
-    render(
-      <ListItem isFirst={false} isLast={false} changePosition={changePosition} item={value} />
-    );
+    const value = { id: '0', name: 'hello', isDone: false, position: 10 };
+    const dispatchHandler = jest.fn();
+    render(<ListItem isFirst={false} isLast={false} dispatch={dispatchHandler} item={value} />);
     const linkElement = screen.getByText(/hello/i);
     expect(linkElement).toBeInTheDocument();
-    //Up test
+    //Up case
     const elementUp = screen.getByTestId('up');
     fireEvent.click(elementUp);
-    expect(changePosition).toBeCalled();
-    //Down test
+    expect(dispatchHandler).toBeCalledWith({
+      name: 'changePosition',
+      itemId: value.id,
+      itemNumber: 1
+    });
+    //Down case
     const elementDown = screen.getByTestId('down');
     fireEvent.click(elementDown);
-    expect(changePosition).toBeCalled();
+    expect(dispatchHandler).toBeCalledWith({
+      name: 'changePosition',
+      itemId: value.id,
+      itemNumber: -1
+    });
   });
 });

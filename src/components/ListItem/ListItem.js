@@ -22,8 +22,15 @@ export default function ListItem({ item, isFirst, isLast, dispatch }) {
           dispatch({ name: 'changeState', itemId: item.id, itemIsDone: !item.isDone })
         }
       />
-      <button onClick={() => dispatch({ name: 'remove', itemId: item.id })}>Remove</button>
-      <button onClick={() => setIsEdit(!isEdit)}>{!isEdit ? 'Edit' : 'Cancel'}</button>
+      <button
+        data-testid="remove-button"
+        onClick={() => dispatch({ name: 'remove', itemId: item.id })}
+      >
+        Remove
+      </button>
+      <button data-testid="edit-cancel-button" onClick={() => setIsEdit(!isEdit)}>
+        {!isEdit ? 'Edit' : 'Cancel'}
+      </button>
       {!isFirst && (
         <button
           data-testid="up"
