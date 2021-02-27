@@ -10,8 +10,15 @@ export default function SearchPanel({ filter }) {
         filter({ name: 'updateSearch', value: search });
       }}
     >
-      <input type="text" value={search} onChange={e => setSearch(e.target.value)} />
-      <button type="submit">Search</button>
+      <input
+        data-testid="search-input"
+        type="text"
+        value={search}
+        onChange={e => setSearch(e.target.value)}
+      />
+      <button data-testid="search-button" type="submit">
+        Search
+      </button>
     </form>
   );
 }
