@@ -36,6 +36,22 @@ describe('EditListItemForm tests', () => {
     expect(closeItemHandler).toHaveBeenCalled();
   });
 
+  test('submit form with empty name', () => {
+    const closeItemHandler = jest.fn();
+    const editHandler = jest.fn();
+    const field = '';
+
+    render(<EditListItem item={item} dispatch={editHandler} closeItem={closeItemHandler} />);
+    const form = screen.getByTestId('editForm');
+    const input = screen.getByTestId('edit-input');
+
+    fireEvent.input(input, { target: { value: field } });
+    expect(editHandler).not.toBeCalled();
+    fireEvent.submit(form);
+    expect(editHandler).not.toBeCalled();
+    expect(closeItemHandler).toHaveBeenCalled();
+  });
+
   test('click on submit button', () => {
     const closeItemHandler = jest.fn();
     const editHandler = jest.fn();
