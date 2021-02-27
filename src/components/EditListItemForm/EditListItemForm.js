@@ -21,6 +21,7 @@ export default function EditListItem({ item, dispatch, closeItem }) {
     <div>
       <form data-testid="editForm" action="" onSubmit={e => submitHandler(e)}>
         <input
+          data-testid="edit-input"
           type="text"
           value={name}
           onChange={e => {
@@ -28,7 +29,7 @@ export default function EditListItem({ item, dispatch, closeItem }) {
           }}
           onBlur={e => blurHandler(e)}
         />
-        <button ref={button} type="submit">
+        <button data-testid="edit-button" ref={button} type="submit">
           Save
         </button>
       </form>
