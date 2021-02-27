@@ -41,6 +41,10 @@ function App() {
     }
   }
 
+  function filterItems(list) {
+    return list.filter(filterList()).sort((el1, el2) => el1.position - el2.position);
+  }
+
   return (
     <div className="wrapper">
       <div>
@@ -53,7 +57,7 @@ function App() {
         <br />
         <SearchPanel filter={updateState} />
         <br />
-        <List list={itemsList} filterItem={filterList} dispatch={dispatch} />
+        <List list={filterItems(itemsList)} dispatch={dispatch} />
       </div>
     </div>
   );

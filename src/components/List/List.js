@@ -1,16 +1,15 @@
 import React from 'react';
 import ListItem from '../ListItem/ListItem';
 
-export default function List({ list, filterItem, dispatch }) {
-  let items = list.filter(filterItem()).sort((el1, el2) => el1.position - el2.position);
+export default function List({ list, dispatch }) {
   return (
     <ul>
-      {items.map((item, index) => (
+      {list.map((item, index) => (
         <ListItem
           key={item.id}
           item={item}
           isFirst={index === 0}
-          isLast={index === items.length - 1}
+          isLast={index === list.length - 1}
           dispatch={dispatch}
         />
       ))}
