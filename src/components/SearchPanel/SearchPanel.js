@@ -7,7 +7,7 @@ export default function SearchPanel({ filter }) {
       action=""
       onSubmit={e => {
         e.preventDefault();
-        filter({ name: 'search', search: search });
+        filter({ name: 'updateSearch', value: search });
       }}
     >
       <input type="text" value={search} onChange={e => setSearch(e.target.value)} />

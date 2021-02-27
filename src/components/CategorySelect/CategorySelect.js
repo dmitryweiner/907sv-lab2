@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 
-export default function CategorySelect({ filterValues }) {
+export default function CategorySelect({ filterValues, updateCategory }) {
   const [filter, setFilter] = useState('all');
   return (
     <select
@@ -8,6 +8,7 @@ export default function CategorySelect({ filterValues }) {
       value={filter}
       onChange={e => {
         setFilter(e.target.value);
+        updateCategory({ name: 'updateCategory', value: e.target.value });
       }}
     >
       {Object.values(filterValues).map((filterItem, index) => (

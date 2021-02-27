@@ -34,10 +34,6 @@ export default function reducer(action, previousList = []) {
       return [...previousList, action.item];
     }
 
-    case 'search': {
-      return [...previousList.filter(el => el.name.includes(action.search))];
-    }
-
     default:
       return [...previousList];
   }

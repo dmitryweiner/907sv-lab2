@@ -8,7 +8,8 @@ import CategorySelect from '../CategorySelect/CategorySelect';
 
 function App() {
   const [itemsList, setItemList] = useState([]);
-  const [search] = useState('');
+  const [search, setSearch] = useState('');
+  const [category, setCategory] = useState('all');
 
   const filterValues = {
     ALL: 'all',
@@ -16,10 +17,10 @@ function App() {
     NOT_DONE: 'not done'
   };
 
-  function filterList(c) {
-    if (c === filterValues.DONE) {
+  function filterList() {
+    if (category === filterValues.DONE) {
       return el => el.isDone && el.name.includes(search);
-    } else if (c === filterValues.NOT_DONE) {
+    } else if (category === filterValues.NOT_DONE) {
       return el => !el.isDone && el.name.includes(search);
     }
     return el => el.name.includes(search);
@@ -27,6 +28,17 @@ function App() {
 
   function dispatch(action) {
     setItemList(reducer(action, itemsList));
+  }
+
+  function updateState(action) {
+    switch (action.name) {
+      case 'updateSearch':
+        setSearch(action.value);
+        break;
+      case 'updateCategory':
+        setCategory(action.value);
+        break;
+    }
   }
 
   return (
@@ -37,9 +49,9 @@ function App() {
       </div>
       <div>
         <CreateForm create={dispatch} />
-        <CategorySelect filterValues={filterValues} />
+        <CategorySelect filterValues={filterValues} updateCategory={updateState} />
         <br />
-        <SearchPanel filter={dispatch} />
+        <SearchPanel filter={updateState} />
         <br />
         <List list={itemsList} filterItem={filterList} dispatch={dispatch} />
       </div>

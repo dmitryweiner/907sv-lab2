@@ -2,7 +2,7 @@ import React from 'react';
 import ListItem from '../ListItem/ListItem';
 
 export default function List({ list, filterItem, dispatch }) {
-  let items = list.filter(filterItem).sort((el1, el2) => el1.position - el2.position);
+  let items = list.filter(filterItem()).sort((el1, el2) => el1.position - el2.position);
   return (
     <ul>
       {items.map((item, index) => (
