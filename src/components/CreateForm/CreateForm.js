@@ -24,8 +24,15 @@ export default function CreateForm({ create }) {
   }
   return (
     <>
-      <input type="text" value={item} onChange={event => setItem(event.target.value)} />
-      <button onClick={() => createListItem()}>Добавить</button>
+      <input
+        data-testid="create-input"
+        type="text"
+        value={item}
+        onChange={event => setItem(event.target.value)}
+      />
+      <button data-testid="create-button" onClick={() => createListItem()}>
+        Добавить
+      </button>
     </>
   );
 }

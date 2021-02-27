@@ -15,10 +15,9 @@ describe('List tests', () => {
   });
 
   test('pass empty list', () => {
-    const list = [];
     const filterItem = () => true;
-    render(<List filterItem={filterItem} list={list} />);
+    render(<List filterItem={filterItem} list={[]} />);
     const elements = screen.queryAllByTestId('list-item');
-    expect(elements).toHaveLength(list.length);
+    expect(elements).toHaveLength([].length);
   });
 });
