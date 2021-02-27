@@ -2,7 +2,7 @@ import List from './List';
 import React from 'react';
 import { render, screen } from '@testing-library/react';
 
-describe('ListTests', () => {
+describe('List tests', () => {
   test('pass two items', () => {
     const list = [
       { id: 0, name: 'hello', isDone: false, position: 10 },

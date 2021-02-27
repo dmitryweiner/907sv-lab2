@@ -4,6 +4,7 @@ export default function CategorySelect({ filterValues, updateCategory }) {
   const [filter, setFilter] = useState('all');
   return (
     <select
+      data-testid="select"
       name="select"
       value={filter}
       onChange={e => {
@@ -12,7 +13,7 @@ export default function CategorySelect({ filterValues, updateCategory }) {
       }}
     >
       {Object.values(filterValues).map((filterItem, index) => (
-        <option key={index} value={filterItem}>
+        <option data-testid="category-option" key={index} value={filterItem}>
           {filterItem}
         </option>
       ))}
