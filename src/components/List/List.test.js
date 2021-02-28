@@ -34,4 +34,25 @@ describe('List tests', () => {
       expect(dispatchHandler).toBeCalledWith({ name: 'remove', itemId: list[index].id });
     });
   });
+
+  test('click on checkbox of every item', () => {
+    const dispatchHandler = jest.fn();
+    const list = [
+      { id: 0, name: 'hello', isDone: false, position: 10 },
+      { id: 1, name: 'hello', isDone: true, position: 11 }
+    ];
+    render(<List dispatch={dispatchHandler} list={list} />);
+    const elements = screen.getAllByTestId('item-checkbox');
+    elements.forEach((el, index) => {
+      //item show correct state of checkbox
+      expect(el.getAttribute('checked')).toEqual(list[index].isDone ? '' : null);
+      //click on checkbox
+      fireEvent.click(el);
+      expect(dispatchHandler).toBeCalledWith({
+        name: 'changeState',
+        itemId: list[index].id,
+        itemIsDone: !list[index].isDone
+      });
+    });
+  });
 });

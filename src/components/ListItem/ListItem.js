@@ -16,6 +16,7 @@ export default function ListItem({ item, isFirst, isLast, dispatch }) {
         <EditListItem item={item} dispatch={dispatch} closeItem={() => setIsEdit(false)} />
       )}
       <input
+        data-testid="item-checkbox"
         type="checkbox"
         checked={item.isDone}
         onChange={() =>

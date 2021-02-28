@@ -51,4 +51,36 @@ describe('ListItemTests', () => {
       itemNumber: -1
     });
   });
+
+  test('done item show checked checkbox', () => {
+    const value = { id: '0', name: 'hello', isDone: true, position: 10 };
+    render(<ListItem item={value} />);
+    const checkBox = screen.getByTestId('item-checkbox');
+    expect(checkBox).toBeInTheDocument();
+    expect(checkBox).toHaveAttribute('checked');
+  });
+
+  test('item in progress show unchecked checkbox', () => {
+    const value = { id: '0', name: 'hello', isDone: false, position: 10 };
+    render(<ListItem item={value} />);
+    const checkBox = screen.getByTestId('item-checkbox');
+    expect(checkBox).toBeInTheDocument();
+    expect(checkBox).not.toHaveAttribute('checked');
+  });
+
+  test('click on checkbox triggers event handler with correct arguments', () => {
+    const dispatchHandler = jest.fn();
+    const value = { id: '0', name: 'hello', isDone: false, position: 10 };
+
+    render(<ListItem item={value} dispatch={dispatchHandler} />);
+    const checkBox = screen.getByTestId('item-checkbox');
+
+    expect(dispatchHandler).not.toBeCalled();
+    fireEvent.click(checkBox);
+    expect(dispatchHandler).toBeCalledWith({
+      name: 'changeState',
+      itemId: value.id,
+      itemIsDone: !value.isDone
+    });
+  });
 });
