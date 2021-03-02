@@ -25,6 +25,7 @@
     "build": "react-scripts build",
     "lint": "eslint src/",
     "lint-fix": "eslint src/ --fix",
+    "test": "react-scripts test",
     "prettier": "prettier --write \"src/**/*.(js|jsx|ts|tsx)\""
   },
   "browserslist": {

@@ -1,20 +1,21 @@
 import React, { useState } from 'react';
 import './App.css';
-import TodoList from './TodoList';
+import ToDoForm from './components/ToDoForm';
+import TodoList from './components/TodoList';
 
-function App() {
+export default function App() {
     const [tasks, setTasks] = useState([]);
-    const [text, setText] = useState('');
 
-    //useEffect(() => {});
-
-    function addition(e) {
-        e.preventDefault();
+    function addition(text) {
         if (text.length === 0) {
             return;
         }
         setTasks([...tasks, text]);
-        setText('');
+    }
+
+    function handleDelete(index) {
+        tasks.splice(index, 1);
+        setTasks([...tasks]);
     }
 
     return (
@@ -23,21 +24,8 @@ function App() {
                 <h1>Список дел</h1>
                 <h2>Лабораторная №2. Добавляем элемент в список</h2>
             </div>
-            <form onSubmit={e => addition(e)}>
-                <label htmlFor="new-todo">Что нужно сделать?</label>
-                <input
-                    type="text"
-                    id="new-todo"
-                    onChange={e => setText(e.target.value)}
-                    value={text}
-                />
-                <button type="submit" onClick={e => addition(e)}>
-                    Добавить #{tasks.length + 1}
-                </button>
-            </form>
-            <TodoList tasks={tasks} />
+            <ToDoForm addition={addition} />
+            <TodoList tasks={tasks} remove={handleDelete} data-testid="RemoveButton" />
         </div>
     );
 }
-
-export default App;
