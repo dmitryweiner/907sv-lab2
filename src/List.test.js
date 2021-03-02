@@ -18,7 +18,6 @@ test('ClickHandler of ListItem to be called with id', () => {
   render(<List list={list} handleClick={handleClick} />);
   const buttons = screen.getAllByTestId('test-button');
   for (let i = 0; i < list.length; i++) {
-    console.log(i);
     expect(buttons[i]).toBeInTheDocument();
     expect(handleClick).not.toBeCalledWith(i);
     fireEvent.click(buttons[i]);
