@@ -1,4 +1,20 @@
-export default function reducer(action, previousList = []) {
+export interface Action {
+  name: string;
+  itemId: string;
+  itemNumber: number;
+  itemIsDone: boolean;
+  itemName: string;
+  value: string;
+  item: Item;
+}
+export interface Item {
+  id: string;
+  isDone: boolean;
+  name: string;
+  position: number;
+}
+
+export default function reducer(action: Action, previousList: Item[] = []) {
   switch (action.name) {
     case 'remove': {
       return [...previousList.filter(el => el.id !== action.itemId)];
@@ -39,9 +55,9 @@ export default function reducer(action, previousList = []) {
   }
 }
 
-export function changePosition(id, number, itemsList) {
+export function changePosition(id: string, number: number, itemsList: Item[]) {
   let previous;
-  let current;
+  let current = 0;
   let temp;
 
   if (number > 0) {

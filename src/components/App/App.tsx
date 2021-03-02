@@ -5,9 +5,10 @@ import SearchPanel from '../SearchPanel/SearchPanel';
 import reducer from '../../store';
 import CreateForm from '../CreateForm/CreateForm';
 import CategorySelect from '../CategorySelect/CategorySelect';
+import { Item, Action } from '../../store';
 
 function App() {
-  const [itemsList, setItemList] = useState([]);
+  const [itemsList, setItemList] = useState<Item[]>([]);
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState('all');
 
@@ -19,18 +20,18 @@ function App() {
 
   function filterList() {
     if (category === filterValues.DONE) {
-      return el => el.isDone && el.name.includes(search);
+      return (el: Item) => el.isDone && el.name.includes(search);
     } else if (category === filterValues.NOT_DONE) {
-      return el => !el.isDone && el.name.includes(search);
+      return (el: Item) => !el.isDone && el.name.includes(search);
     }
-    return el => el.name.includes(search);
+    return (el: Item) => el.name.includes(search);
   }
 
-  function dispatch(action) {
+  function dispatch(action: Action) {
     setItemList(reducer(action, itemsList));
   }
 
-  function updateState(action) {
+  function updateState(action: Action) {
     switch (action.name) {
       case 'updateSearch':
         setSearch(action.value);
@@ -41,7 +42,7 @@ function App() {
     }
   }
 
-  function filterItems(list) {
+  function filterItems(list: Item[]) {
     return list.filter(filterList()).sort((el1, el2) => el1.position - el2.position);
   }
 
