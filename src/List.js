@@ -1,15 +1,15 @@
 import React from 'react';
 import ListItem from './ListItem';
 
-export default function List({ list }) {
+export default function List({ list, handleClick }) {
   function renderList() {
     if (!list.length) {
-      return 'Список пуст';
+      return 'Нет дел в списке';
     }
     return (
       <>
         {list.map((item, index) => (
-          <ListItem title={item} key={index} />
+          <ListItem title={item} key={index} handleClick={handleClick} id={index} />
         ))}
       </>
     );
