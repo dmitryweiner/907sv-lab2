@@ -2,17 +2,21 @@ import React from 'react';
 import { useState } from 'react';
 import './App.css';
 import List from './List';
+import Form from './Form';
 
 function App() {
-  const [task, setTask] = useState('');
-  const [arr, setArr] = useState([]);
+  const [list, setList] = useState([]);
 
-  function addTask() {
-    setArr([...arr, task]);
-    setTask('');
+  function add(value) {
+    const newElement = {
+      title: value
+    };
+    setList([...list, newElement]);
   }
 
-  //function removeTask(index) {arr.splice(index, 1);setArr([...arr]);}
+  function remove(id) {
+    setList([...list.filter(item => item.id !== id)]);
+  }
 
   return (
     <div className="wrapper">
@@ -21,9 +25,8 @@ function App() {
         <h2>Лабораторная №2. Добавляем элемент в список</h2>
       </div>
       <div>
-        <input type="text" value={task} onChange={e => setTask(e.target.value)} />
-        <button onClick={() => addTask()}>Добавить</button>
-        <List list={arr} />
+        <Form handleSubmit={add()} />
+        <List list={list} handleClick={remove()} />
       </div>
     </div>
   );
