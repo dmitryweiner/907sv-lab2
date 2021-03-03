@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import './App.css';
 import List from '../List/List';
-import SearchPanel from '../SearchPanel/SearchPanel';
+import { SearchPanel, FilterArguments } from '../SearchPanel/SearchPanel';
 import reducer from '../../store';
 import CreateForm from '../CreateForm/CreateForm';
 import CategorySelect from '../CategorySelect/CategorySelect';
@@ -31,7 +31,7 @@ function App() {
     setItemList(reducer(action, itemsList));
   }
 
-  function updateState(action: Action) {
+  function updateState(action: FilterArguments) {
     switch (action.name) {
       case 'updateSearch':
         setSearch(action.value);

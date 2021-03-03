@@ -1,10 +1,23 @@
 import React, { useState, useRef } from 'react';
+import { Item } from '../../store';
 
-export default function EditListItem({ item, dispatch, closeItem }) {
+interface DispatchArguments {
+  itemId: string;
+  itemName: string;
+  name: string;
+}
+
+interface EditListItemFormProps {
+  item: Item;
+  dispatch: (action: DispatchArguments) => void;
+  closeItem: () => void;
+}
+
+export const EditListItem: React.FC<EditListItemFormProps> = ({ item, dispatch, closeItem }) => {
   const [name, setName] = useState(item.name);
   const button = useRef(null);
 
-  function submitHandler(e) {
+  function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (name !== '') {
       dispatch({ itemId: item.id, itemName: name, name: 'edit' });
@@ -12,7 +25,7 @@ export default function EditListItem({ item, dispatch, closeItem }) {
     closeItem();
   }
 
-  function blurHandler(e) {
+  function blurHandler(e: React.FocusEvent<HTMLInputElement>) {
     if (e.relatedTarget === button.current && name !== '') {
       dispatch({ itemId: item.id, itemName: name, name: 'edit' });
     }
@@ -21,7 +34,11 @@ export default function EditListItem({ item, dispatch, closeItem }) {
 
   return (
     <div>
-      <form data-testid="editForm" action="" onSubmit={e => submitHandler(e)}>
+      <form
+        data-testid="editForm"
+        action=""
+        onSubmit={(e: React.FormEvent<HTMLFormElement>) => submitHandler(e)}
+      >
         <input
           data-testid="edit-input"
           type="text"
@@ -37,4 +54,4 @@ export default function EditListItem({ item, dispatch, closeItem }) {
       </form>
     </div>
   );
-}
+};

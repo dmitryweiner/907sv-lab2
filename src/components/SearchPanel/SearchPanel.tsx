@@ -1,6 +1,15 @@
 import React, { useState } from 'react';
 
-export default function SearchPanel({ filter }) {
+export interface FilterArguments {
+  name: string;
+  value: string;
+}
+
+interface SearchPanelProps {
+  filter: (action: FilterArguments) => void;
+}
+
+export const SearchPanel: React.FC<SearchPanelProps> = ({ filter }) => {
   const [search, setSearch] = useState('');
   return (
     <form
@@ -21,4 +30,4 @@ export default function SearchPanel({ filter }) {
       </button>
     </form>
   );
-}
+};
