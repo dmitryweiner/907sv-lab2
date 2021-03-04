@@ -1,3 +1,5 @@
+import { IFilterValues } from './components/App/App';
+
 export const ACTION_TYPES = {
   CREATE: 'create',
   REMOVE: 'remove',
@@ -48,19 +50,25 @@ export interface Item {
   position: number;
 }
 
-export default function reducer(action: Action, previousList: Item[] = []) {
+const initialStore = {
+  list: Array<Item>(),
+  filter: IFilterValues[IFilterValues.ALL],
+  search: ''
+};
+
+export function reducer(action: Action, previousState: typeof initialStore = initialStore) {
   switch (action.name) {
     case 'remove': {
-      return [...previousList.filter(el => el.id !== action.itemId)];
+      return [...previousState.list.filter(el => el.id !== action.itemId)];
     }
 
     case 'changePosition': {
-      return changePosition(action.itemId, action.itemNumber, previousList);
+      return changePosition(action.itemId, action.itemNumber, previousState.list);
     }
 
     case 'changeState': {
       return [
-        ...previousList.map(item => {
+        ...previousState.list.map(item => {
           if (item.id === action.itemId) {
             item.isDone = action.itemIsDone;
           }
@@ -71,7 +79,7 @@ export default function reducer(action: Action, previousList: Item[] = []) {
 
     case 'edit': {
       return [
-        ...previousList.map(item => {
+        ...previousState.list.map(item => {
           if (item.id === action.itemId) {
             item.name = action.itemName;
           }
@@ -81,11 +89,11 @@ export default function reducer(action: Action, previousList: Item[] = []) {
     }
 
     case 'create': {
-      return [...previousList, action.item];
+      return [...previousState.list, action.item];
     }
 
     default:
-      return [...previousList];
+      return [...previousState.list];
   }
 }
 
@@ -124,4 +132,16 @@ export function changePosition(id: string, number: number, itemsList: Item[]) {
   elms[current].position = temp;
 
   return [...elms];
+}
+
+export function selectListByFilter(state: typeof initialStore) {
+  state.list = state.list.sort((el1, el2) => el1.position - el2.position);
+  switch (state.filter) {
+    case IFilterValues[IFilterValues.DONE]:
+      return state.list.filter(el => el.isDone && el.name.includes(state.search));
+    case IFilterValues[IFilterValues.NOT_DONE]:
+      return state.list.filter(el => !el.isDone && el.name.includes(state.search));
+    default:
+      return state.list.filter(el => el.name.includes(state.search));
+  }
 }

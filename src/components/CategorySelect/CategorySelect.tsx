@@ -7,11 +7,12 @@ export interface UpdateCategoryArguments {
 }
 
 interface CategorySelectProps {
-  filterValues: IFilterValues;
+  filterValues: typeof IFilterValues;
   updateCategory: (args: UpdateCategoryArguments) => void;
 }
 
 export const CategorySelect: React.FC<CategorySelectProps> = ({ filterValues, updateCategory }) => {
+  console.log(filterValues);
   const [filter, setFilter] = useState('all');
   return (
     <select

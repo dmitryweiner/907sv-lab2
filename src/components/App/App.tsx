@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import './App.css';
 import { List } from '../List/List';
 import { SearchPanel, FilterArguments } from '../SearchPanel/SearchPanel';
-import reducer from '../../store';
+import { selectListByFilter, reducer } from '../../store';
 import { CreateForm } from '../CreateForm/CreateForm';
 import { CategorySelect } from '../CategorySelect/CategorySelect';
 import { Item, Action } from '../../store';
@@ -18,17 +18,8 @@ function App() {
   const [search, setSearch] = useState('');
   const [category, setCategory] = useState(IFilterValues[IFilterValues.ALL]);
 
-  function filterList() {
-    if (category === IFilterValues[IFilterValues.DONE]) {
-      return (el: Item) => el.isDone && el.name.includes(search);
-    } else if (category === IFilterValues[IFilterValues.NOT_DONE]) {
-      return (el: Item) => !el.isDone && el.name.includes(search);
-    }
-    return (el: Item) => el.name.includes(search);
-  }
-
   function dispatch(action: Action) {
-    setItemList(reducer(action, itemsList));
+    setItemList(reducer(action, { list: itemsList, filter: category, search }));
   }
 
   function updateState(action: FilterArguments) {
@@ -40,10 +31,6 @@ function App() {
         setCategory(action.value);
         break;
     }
-  }
-
-  function filterItems(list: Item[]) {
-    return list.filter(filterList()).sort((el1, el2) => el1.position - el2.position);
   }
 
   return (
@@ -58,7 +45,10 @@ function App() {
         <br />
         <SearchPanel filter={updateState} />
         <br />
-        <List list={filterItems(itemsList)} dispatch={dispatch} />
+        <List
+          list={selectListByFilter({ list: itemsList, filter: category, search: search })}
+          dispatch={dispatch}
+        />
       </div>
     </div>
   );
