@@ -24,11 +24,16 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({ filterValues, up
         updateCategory({ name: 'updateCategory', value: e.target.value });
       }}
     >
-      {Object.keys(filterValues).map((filterItem, index) => (
-        <option data-testid="category-option" key={index} value={filterItem}>
-          {filterItem}
-        </option>
-      ))}
+      {Object.keys(filterValues).map((filterItem, index) => {
+        if (isNaN(Number(filterItem))) {
+          return (
+            <option data-testid="category-option" key={index} value={filterItem}>
+              {filterItem}
+            </option>
+          );
+        }
+        return false;
+      })}
     </select>
   );
 };

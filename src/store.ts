@@ -1,4 +1,8 @@
-import { IFilterValues } from './components/App/App';
+export enum IFilterValues {
+  ALL,
+  DONE,
+  NOT_DONE
+}
 
 export const ACTION_TYPES = {
   CREATE: 'create',
