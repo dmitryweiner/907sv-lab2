@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { IFilterValues } from '../App/App';
+import { IFilterValues } from '../../store';
 
 export interface UpdateCategoryArguments {
   name: string;

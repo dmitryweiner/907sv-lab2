@@ -5,13 +5,7 @@ import { SearchPanel, FilterArguments } from '../SearchPanel/SearchPanel';
 import { selectListByFilter, reducer } from '../../store';
 import { CreateForm } from '../CreateForm/CreateForm';
 import { CategorySelect } from '../CategorySelect/CategorySelect';
-import { Item, Action } from '../../store';
-
-export enum IFilterValues {
-  ALL,
-  DONE,
-  NOT_DONE
-}
+import { Item, Action, IFilterValues } from '../../store';
 
 function App() {
   const [itemsList, setItemList] = useState<Item[]>([]);
