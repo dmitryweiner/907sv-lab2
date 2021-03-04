@@ -1,4 +1,5 @@
 import React from 'react';
+import './ListItem.css';
 
 export default function ListItem({ title, id, handleRemove }) {
   return (

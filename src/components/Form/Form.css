@@ -1,0 +1,27 @@
+button {
+    text-decoration: none;
+    color: #7f8c8d;
+    background: #fefefe;
+    padding:5px 8px;
+    border: 1px solid #bdc3c7;
+    border-radius: 3px;
+    text-align:center;
+    display:block;
+    width:120px;
+    height:40px;
+    font: 400 16px verdana;
+}
+
+button:after {
+    content: "";
+    background: linear-gradient(to right, #2ecc71 10%, #3498db 10%, #3498db 20%, #8e44ad 20%, #8e44ad 30%, #e67e22 30%, #e67e22 40%, #c0392b 40%, #c0392b 50%, #2ecc71 50%, #2ecc71 60%, #3498db 60%, #3498db 70%, #8e44ad 70%, #8e44ad 80%, #e67e22 80%, #e67e22 90%, #c0392b 90%);
+    background-size: 200% 100%;
+    display: inline-block;
+    width: 100%;
+    height: 4px;
+    left: 0;
+    bottom: 0;
+}
+button:hover {
+    color: #34495e;
+}
