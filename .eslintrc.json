@@ -14,7 +14,11 @@
   },
   "parser": "babel-eslint",
   "rules": {
-    "prettier/prettier": ["error"],
+    "prettier/prettier": ["error",
+      {
+        "endOfLine": "auto"
+      }
+    ],
     "react/prop-types": "off",
     "comma-dangle": "off"
   }
