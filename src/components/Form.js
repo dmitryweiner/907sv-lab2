@@ -7,6 +7,7 @@ export default function Form({ handleSubmit }) {
   function handleSubmitInner(e) {
     e.preventDefault();
     handleSubmit({ field });
+    setField('');
   }
 
   return (

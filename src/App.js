@@ -1,17 +1,18 @@
 import React from 'react';
 import { useState } from 'react';
 import './App.css';
-import List from './List';
-import Form from './Form';
+import List from './components/List';
+import Form from './components/Form';
 
 function App() {
   const [list, setList] = useState([]);
 
-  function add(value) {
-    const newElement = {
-      title: value
+  function add({ field }) {
+    const newTask = {
+      id: Math.random().toString(36).substr(2),
+      title: field
     };
-    setList([...list, newElement]);
+    setList([...list, newTask]);
   }
 
   function remove(id) {
@@ -25,8 +26,8 @@ function App() {
         <h2>Лабораторная №2. Добавляем элемент в список</h2>
       </div>
       <div>
-        <Form handleSubmit={add()} />
-        <List list={list} handleClick={remove()} />
+        <Form handleSubmit={add} />
+        <List list={list} handleRemove={remove} />
       </div>
     </div>
   );

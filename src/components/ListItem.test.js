@@ -4,10 +4,10 @@ import ListItem from './ListItem';
 
 const task = 'Принять таблетки';
 const id = 1;
-const handleClick = jest.fn();
+const handleRemove = jest.fn();
 
 test('ListItem to have given text', () => {
-  render(<ListItem title={task} id={id} handleClick={handleClick} />);
+  render(<ListItem title={task} id={id} handleClick={handleRemove} />);
   const element = screen.getByTestId('task');
   expect(element).toBeInTheDocument();
   expect(element).toHaveTextContent(task);
@@ -15,10 +15,10 @@ test('ListItem to have given text', () => {
 });
 
 test('ClickHandler to be called with id', () => {
-  render(<ListItem title={task} id={id} handleClick={handleClick} />);
+  render(<ListItem title={task} id={id} handleRemove={handleRemove} />);
   const button = screen.getByTestId('test-button');
   expect(button).toBeInTheDocument();
-  expect(handleClick).not.toBeCalled();
+  expect(handleRemove).not.toBeCalled();
   fireEvent.click(button);
-  expect(handleClick).toBeCalledWith(id);
+  expect(handleRemove).toBeCalledWith(id);
 });
