@@ -1,9 +1,17 @@
 import React, { useState } from 'react';
 import { EditListItem } from '../EditListItemForm/EditListItemForm';
+import { Item, Action } from '../../store';
 
-export default function ListItem({ item, isFirst, isLast, dispatch }) {
+interface ListItemProps {
+  item: Item;
+  isFirst: boolean;
+  isLast: boolean;
+  dispatch: (action: Action) => void;
+}
+
+export const ListItem: React.FC<ListItemProps> = ({ item, isFirst, isLast, dispatch }) => {
   const isDone = { textDecoration: 'line-through' };
-  const [isEdit, setIsEdit] = useState('');
+  const [isEdit, setIsEdit] = useState(false);
 
   return (
     <>
@@ -20,12 +28,21 @@ export default function ListItem({ item, isFirst, isLast, dispatch }) {
         type="checkbox"
         checked={item.isDone}
         onChange={() =>
-          dispatch({ name: 'changeState', itemId: item.id, itemIsDone: !item.isDone })
+          dispatch({
+            name: 'changeState',
+            itemId: item.id,
+            itemIsDone: !item.isDone
+          })
         }
       />
       <button
         data-testid="remove-button"
-        onClick={() => dispatch({ name: 'remove', itemId: item.id })}
+        onClick={() =>
+          dispatch({
+            name: 'remove',
+            itemId: item.id
+          })
+        }
       >
         Remove
       </button>
@@ -35,7 +52,13 @@ export default function ListItem({ item, isFirst, isLast, dispatch }) {
       {!isFirst && (
         <button
           data-testid="up"
-          onClick={() => dispatch({ name: 'changePosition', itemId: item.id, itemNumber: 1 })}
+          onClick={() =>
+            dispatch({
+              name: 'changePosition',
+              itemId: item.id,
+              itemNumber: 1
+            })
+          }
         >
           ↑
         </button>
@@ -43,11 +66,17 @@ export default function ListItem({ item, isFirst, isLast, dispatch }) {
       {!isLast && (
         <button
           data-testid="down"
-          onClick={() => dispatch({ name: 'changePosition', itemId: item.id, itemNumber: -1 })}
+          onClick={() =>
+            dispatch({
+              name: 'changePosition',
+              itemId: item.id,
+              itemNumber: -1
+            })
+          }
         >
           ↓
         </button>
       )}
     </>
   );
-}
+};

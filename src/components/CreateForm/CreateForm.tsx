@@ -1,6 +1,11 @@
 import React, { useState } from 'react';
+import { Action } from '../../store';
 
-export default function CreateForm({ create }) {
+interface CreateFormProps {
+  create: (item: Action) => void;
+}
+
+export const CreateForm: React.FC<CreateFormProps> = ({ create }) => {
   const [item, setItem] = useState('');
   const [position, setPosition] = useState(0);
 
@@ -17,7 +22,10 @@ export default function CreateForm({ create }) {
       const newItem = { id: uid(), name: item, isDone: false, position: position };
       setPosition(position => position + 1);
       setItem('');
-      create({ name: 'create', item: newItem });
+      create({
+        name: 'create',
+        item: newItem
+      });
     } else {
       alert('?');
     }
@@ -35,4 +43,4 @@ export default function CreateForm({ create }) {
       </button>
     </>
   );
-}
+};

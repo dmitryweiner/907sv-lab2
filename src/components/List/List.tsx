@@ -1,7 +1,13 @@
 import React from 'react';
-import ListItem from '../ListItem/ListItem';
+import { ListItem } from '../ListItem/ListItem';
+import { Item, Action } from '../../store';
 
-export default function List({ list, dispatch }) {
+interface ListProps {
+  list: Item[];
+  dispatch: (action: Action) => void;
+}
+
+export const List: React.FC<ListProps> = ({ list, dispatch }) => {
   return (
     <ul>
       {list.map((item, index) => (
@@ -15,4 +21,4 @@ export default function List({ list, dispatch }) {
       ))}
     </ul>
   );
-}
+};

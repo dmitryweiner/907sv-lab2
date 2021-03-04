@@ -1,15 +1,9 @@
 import React, { useState, useRef } from 'react';
-import { Item } from '../../store';
-
-interface DispatchArguments {
-  itemId: string;
-  itemName: string;
-  name: string;
-}
+import { Action, Item } from '../../store';
 
 interface EditListItemFormProps {
   item: Item;
-  dispatch: (action: DispatchArguments) => void;
+  dispatch: (action: Action) => void;
   closeItem: () => void;
 }
 
@@ -20,14 +14,22 @@ export const EditListItem: React.FC<EditListItemFormProps> = ({ item, dispatch, 
   function submitHandler(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
     if (name !== '') {
-      dispatch({ itemId: item.id, itemName: name, name: 'edit' });
+      dispatch({
+        name: 'edit',
+        itemId: item.id,
+        itemName: name
+      });
     }
     closeItem();
   }
 
   function blurHandler(e: React.FocusEvent<HTMLInputElement>) {
     if (e.relatedTarget === button.current && name !== '') {
-      dispatch({ itemId: item.id, itemName: name, name: 'edit' });
+      dispatch({
+        name: 'edit',
+        itemId: item.id,
+        itemName: name
+      });
     }
     closeItem();
   }

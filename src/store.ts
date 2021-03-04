@@ -1,12 +1,46 @@
-export interface Action {
-  name: string;
+export const ACTION_TYPES = {
+  CREATE: 'create',
+  REMOVE: 'remove',
+  CHANGE_POSITION: 'changePosition',
+  CHANGE_STATE: 'changeState',
+  EDIT: 'edit'
+};
+
+export type Action =
+  | ActionRemove
+  | ActionChangePosition
+  | ActionChangeState
+  | ActionEdit
+  | ActionCreate;
+
+interface ActionRemove {
+  name: 'remove';
+  itemId: string;
+}
+
+interface ActionChangePosition {
+  name: 'changePosition';
   itemId: string;
   itemNumber: number;
+}
+
+interface ActionChangeState {
+  name: 'changeState';
+  itemId: string;
   itemIsDone: boolean;
+}
+
+interface ActionEdit {
+  name: 'edit';
+  itemId: string;
   itemName: string;
-  value: string;
+}
+
+interface ActionCreate {
+  name: 'create';
   item: Item;
 }
+
 export interface Item {
   id: string;
   isDone: boolean;

@@ -1,27 +1,27 @@
 import React, { useState } from 'react';
 import './App.css';
-import List from '../List/List';
+import { List } from '../List/List';
 import { SearchPanel, FilterArguments } from '../SearchPanel/SearchPanel';
 import reducer from '../../store';
-import CreateForm from '../CreateForm/CreateForm';
-import CategorySelect from '../CategorySelect/CategorySelect';
+import { CreateForm } from '../CreateForm/CreateForm';
+import { CategorySelect } from '../CategorySelect/CategorySelect';
 import { Item, Action } from '../../store';
+
+export enum IFilterValues {
+  ALL,
+  DONE,
+  NOT_DONE
+}
 
 function App() {
   const [itemsList, setItemList] = useState<Item[]>([]);
   const [search, setSearch] = useState('');
-  const [category, setCategory] = useState('all');
-
-  const filterValues = {
-    ALL: 'all',
-    DONE: 'done',
-    NOT_DONE: 'not done'
-  };
+  const [category, setCategory] = useState(IFilterValues[IFilterValues.ALL]);
 
   function filterList() {
-    if (category === filterValues.DONE) {
+    if (category === IFilterValues[IFilterValues.DONE]) {
       return (el: Item) => el.isDone && el.name.includes(search);
-    } else if (category === filterValues.NOT_DONE) {
+    } else if (category === IFilterValues[IFilterValues.NOT_DONE]) {
       return (el: Item) => !el.isDone && el.name.includes(search);
     }
     return (el: Item) => el.name.includes(search);
@@ -54,7 +54,7 @@ function App() {
       </div>
       <div>
         <CreateForm create={dispatch} />
-        <CategorySelect filterValues={filterValues} updateCategory={updateState} />
+        <CategorySelect filterValues={IFilterValues} updateCategory={updateState} />
         <br />
         <SearchPanel filter={updateState} />
         <br />
