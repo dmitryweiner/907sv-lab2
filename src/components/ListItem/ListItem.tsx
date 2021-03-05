@@ -9,7 +9,7 @@ interface ListItemProps {
   dispatch: (action: Action) => void;
 }
 
-export const ListItem: React.FC<ListItemProps> = ({ item, isFirst, isLast, dispatch }) => {
+export const ListItem = ({ item, isFirst, isLast, dispatch }: ListItemProps) => {
   const isDone = { textDecoration: 'line-through' };
   const [isEdit, setIsEdit] = useState(false);
 

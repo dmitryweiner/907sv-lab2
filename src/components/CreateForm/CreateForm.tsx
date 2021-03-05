@@ -5,7 +5,7 @@ interface CreateFormProps {
   create: (item: Action) => void;
 }
 
-export const CreateForm: React.FC<CreateFormProps> = ({ create }) => {
+export const CreateForm = ({ create }: CreateFormProps) => {
   const [item, setItem] = useState('');
   const [position, setPosition] = useState(0);
 

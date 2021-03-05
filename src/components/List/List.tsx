@@ -7,7 +7,7 @@ interface ListProps {
   dispatch: (action: Action) => void;
 }
 
-export const List: React.FC<ListProps> = ({ list, dispatch }) => {
+export const List = ({ list, dispatch }: ListProps) => {
   return (
     <ul>
       {list.map((item, index) => (

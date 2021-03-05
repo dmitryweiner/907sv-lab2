@@ -11,8 +11,7 @@ interface CategorySelectProps {
   updateCategory: (args: UpdateCategoryArguments) => void;
 }
 
-export const CategorySelect: React.FC<CategorySelectProps> = ({ filterValues, updateCategory }) => {
-  console.log(filterValues);
+export const CategorySelect = ({ filterValues, updateCategory }: CategorySelectProps) => {
   const [filter, setFilter] = useState(filterValues[0]);
   return (
     <select

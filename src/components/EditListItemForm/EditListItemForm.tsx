@@ -7,7 +7,7 @@ interface EditListItemFormProps {
   closeItem: () => void;
 }
 
-export const EditListItem: React.FC<EditListItemFormProps> = ({ item, dispatch, closeItem }) => {
+export const EditListItem = ({ item, dispatch, closeItem }: EditListItemFormProps) => {
   const [name, setName] = useState(item.name);
   const button = useRef(null);
 

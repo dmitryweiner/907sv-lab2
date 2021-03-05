@@ -9,7 +9,7 @@ interface SearchPanelProps {
   filter: (action: FilterArguments) => void;
 }
 
-export const SearchPanel: React.FC<SearchPanelProps> = ({ filter }) => {
+export const SearchPanel = ({ filter }: SearchPanelProps) => {
   const [search, setSearch] = useState('');
   return (
     <form
