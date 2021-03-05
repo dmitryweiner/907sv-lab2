@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import SearchPanel from './SearchPanel';
+import { SearchPanel } from './SearchPanel';
 
 describe('SearchPanel tests', () => {
   test('search items', () => {

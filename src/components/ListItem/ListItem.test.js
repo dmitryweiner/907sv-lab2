@@ -1,4 +1,4 @@
-import ListItem from './ListItem';
+import { ListItem } from './ListItem';
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
 

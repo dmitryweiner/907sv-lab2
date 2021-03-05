@@ -1,4 +1,4 @@
-import List from './List';
+import { List } from './List';
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 

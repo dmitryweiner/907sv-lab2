@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import CreateForm from './CreateForm';
+import { CreateForm } from './CreateForm';
 
 describe('CreateForm tests', () => {
   test('create item with valid name', () => {

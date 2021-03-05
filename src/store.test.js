@@ -1,5 +1,4 @@
-import { changePosition } from './store';
-import reducer from './store';
+import { changePosition, reducer, FILTER_VALUES } from './store';
 
 describe('changePosition tests', () => {
   let items = null;
@@ -53,14 +52,16 @@ describe('reducer test', () => {
   test('remove existing item from list', () => {
     const removeItem = items[0];
     const action = { name: 'remove', itemId: removeItem.id };
-    const newItems = reducer(action, items);
+    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const newItems = reducer(action, state);
     expect(newItems).not.toEqual(items);
     expect(newItems).not.toContain(removeItem);
   });
 
   test('remove not existing item from list', () => {
     const action = { name: 'remove', itemId: '1000' };
-    const newItems = reducer(action, items);
+    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const newItems = reducer(action, state);
     expect(newItems).toEqual(items);
   });
 
@@ -68,7 +69,8 @@ describe('reducer test', () => {
     const changePositionItem = items[1];
     expect(changePositionItem.position).toBe(1);
     const action = { name: 'changePosition', itemId: changePositionItem.id, itemNumber: 1 };
-    reducer(action, items);
+    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    reducer(action, state);
     expect(changePositionItem.position).toBe(0);
   });
 
@@ -76,7 +78,8 @@ describe('reducer test', () => {
     const changeStateItem = items[1];
     expect(changeStateItem.isDone).toBe(false);
     const action = { name: 'changeState', itemId: changeStateItem.id, itemIsDone: true };
-    reducer(action, items);
+    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    reducer(action, state);
     expect(changeStateItem.isDone).not.toBe(false);
   });
 
@@ -84,20 +87,23 @@ describe('reducer test', () => {
     const editItem = items[1];
     expect(editItem.name).toBe('second');
     const action = { name: 'edit', itemId: editItem.id, itemName: 'first' };
-    reducer(action, items);
+    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    reducer(action, state);
     expect(editItem.name).toBe('first');
   });
 
   test('create new item', () => {
     const newItem = { id: '3', name: 'lastLast', isDone: false, position: 3 };
     const action = { name: 'create', item: newItem };
-    const newItems = reducer(action, items);
+    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const newItems = reducer(action, state);
     expect(newItems).toContain(newItem);
   });
 
   test('pass wrong action name', () => {
     const action = { name: 'credcdcdcdate' };
-    const newItems = reducer(action, items);
+    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const newItems = reducer(action, state);
     expect(newItems).toEqual(items);
   });
 });

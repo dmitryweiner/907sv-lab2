@@ -1,6 +1,6 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
-import EditListItem from './EditListItemForm';
+import { EditListItem } from './EditListItemForm';
 
 const item = {
   id: '123',

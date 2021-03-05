@@ -1,16 +1,5 @@
-export enum IFilterValues {
-  ALL,
-  DONE,
-  NOT_DONE
-}
-
-export const ACTION_TYPES = {
-  CREATE: 'create',
-  REMOVE: 'remove',
-  CHANGE_POSITION: 'changePosition',
-  CHANGE_STATE: 'changeState',
-  EDIT: 'edit'
-};
+export const FILTER_VALUES = ['All', 'Done', 'Not done'];
+export type IFilterValues = typeof FILTER_VALUES;
 
 export type Action =
   | ActionRemove
@@ -56,7 +45,7 @@ export interface Item {
 
 const initialStore = {
   list: Array<Item>(),
-  filter: IFilterValues[IFilterValues.ALL],
+  filter: FILTER_VALUES[0],
   search: ''
 };
 
@@ -141,9 +130,9 @@ export function changePosition(id: string, number: number, itemsList: Item[]) {
 export function selectListByFilter(state: typeof initialStore) {
   state.list = state.list.sort((el1, el2) => el1.position - el2.position);
   switch (state.filter) {
-    case IFilterValues[IFilterValues.DONE]:
+    case FILTER_VALUES[1]:
       return state.list.filter(el => el.isDone && el.name.includes(state.search));
-    case IFilterValues[IFilterValues.NOT_DONE]:
+    case FILTER_VALUES[2]:
       return state.list.filter(el => !el.isDone && el.name.includes(state.search));
     default:
       return state.list.filter(el => el.name.includes(state.search));

@@ -5,12 +5,12 @@ import { SearchPanel, FilterArguments } from '../SearchPanel/SearchPanel';
 import { selectListByFilter, reducer } from '../../store';
 import { CreateForm } from '../CreateForm/CreateForm';
 import { CategorySelect } from '../CategorySelect/CategorySelect';
-import { Item, Action, IFilterValues } from '../../store';
+import { Item, Action, FILTER_VALUES } from '../../store';
 
 function App() {
   const [itemsList, setItemList] = useState<Item[]>([]);
   const [search, setSearch] = useState('');
-  const [category, setCategory] = useState(IFilterValues[IFilterValues.ALL]);
+  const [category, setCategory] = useState(FILTER_VALUES[0]);
 
   function dispatch(action: Action) {
     setItemList(reducer(action, { list: itemsList, filter: category, search }));
@@ -35,7 +35,7 @@ function App() {
       </div>
       <div>
         <CreateForm create={dispatch} />
-        <CategorySelect filterValues={IFilterValues} updateCategory={updateState} />
+        <CategorySelect filterValues={FILTER_VALUES} updateCategory={updateState} />
         <br />
         <SearchPanel filter={updateState} />
         <br />

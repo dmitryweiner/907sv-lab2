@@ -7,13 +7,13 @@ export interface UpdateCategoryArguments {
 }
 
 interface CategorySelectProps {
-  filterValues: typeof IFilterValues;
+  filterValues: IFilterValues;
   updateCategory: (args: UpdateCategoryArguments) => void;
 }
 
 export const CategorySelect: React.FC<CategorySelectProps> = ({ filterValues, updateCategory }) => {
   console.log(filterValues);
-  const [filter, setFilter] = useState('all');
+  const [filter, setFilter] = useState(filterValues[0]);
   return (
     <select
       data-testid="select"
@@ -24,16 +24,11 @@ export const CategorySelect: React.FC<CategorySelectProps> = ({ filterValues, up
         updateCategory({ name: 'updateCategory', value: e.target.value });
       }}
     >
-      {Object.keys(filterValues).map((filterItem, index) => {
-        if (isNaN(Number(filterItem))) {
-          return (
-            <option data-testid="category-option" key={index} value={filterItem}>
-              {filterItem}
-            </option>
-          );
-        }
-        return false;
-      })}
+      {filterValues.map((filterItem, index) => (
+        <option data-testid="category-option" key={index} value={filterItem}>
+          {filterItem}
+        </option>
+      ))}
     </select>
   );
 };
