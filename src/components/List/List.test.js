@@ -1,6 +1,7 @@
 import { List } from './List';
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
+import { ACTION_TYPES } from '../../store';
 
 describe('List tests', () => {
   test('pass two items', () => {
@@ -31,7 +32,10 @@ describe('List tests', () => {
     const elements = screen.getAllByTestId('remove-button');
     elements.forEach((el, index) => {
       fireEvent.click(el);
-      expect(dispatchHandler).toBeCalledWith({ name: 'remove', itemId: list[index].id });
+      expect(dispatchHandler).toBeCalledWith({
+        type: ACTION_TYPES.REMOVE,
+        payload: { id: list[index].id }
+      });
     });
   });
 
@@ -49,9 +53,11 @@ describe('List tests', () => {
       //click on checkbox
       fireEvent.click(el);
       expect(dispatchHandler).toBeCalledWith({
-        name: 'changeState',
-        itemId: list[index].id,
-        itemIsDone: !list[index].isDone
+        type: ACTION_TYPES.CHANGE_STATE,
+        payload: {
+          id: list[index].id,
+          isDone: !list[index].isDone
+        }
       });
     });
   });

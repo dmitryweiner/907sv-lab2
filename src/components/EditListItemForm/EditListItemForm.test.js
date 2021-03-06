@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { EditListItem } from './EditListItemForm';
+import { ACTION_TYPES } from '../../store';
 
 const item = {
   id: '123',
@@ -32,7 +33,10 @@ describe('EditListItemForm tests', () => {
     fireEvent.input(input, { target: { value: field } });
     expect(editHandler).not.toBeCalled();
     fireEvent.submit(form);
-    expect(editHandler).toBeCalledWith({ itemId: item.id, itemName: field, name: 'edit' });
+    expect(editHandler).toBeCalledWith({
+      type: ACTION_TYPES.EDIT,
+      payload: { id: item.id, name: field }
+    });
     expect(closeItemHandler).toHaveBeenCalled();
   });
 
@@ -64,7 +68,10 @@ describe('EditListItemForm tests', () => {
     fireEvent.input(input, { target: { value: field } });
     expect(editHandler).not.toBeCalled();
     fireEvent.click(button);
-    expect(editHandler).toBeCalledWith({ itemId: item.id, itemName: field, name: 'edit' });
+    expect(editHandler).toBeCalledWith({
+      type: ACTION_TYPES.EDIT,
+      payload: { id: item.id, name: field }
+    });
     expect(closeItemHandler).toHaveBeenCalled();
   });
 

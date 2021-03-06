@@ -1,6 +1,7 @@
 import React from 'react';
 import { fireEvent, render, screen } from '@testing-library/react';
 import { CreateForm } from './CreateForm';
+import { ACTION_TYPES } from '../../store';
 
 describe('CreateForm tests', () => {
   test('create item with valid name', () => {
@@ -17,7 +18,12 @@ describe('CreateForm tests', () => {
     fireEvent.click(button);
 
     expect(createHandler).toBeCalledWith(
-      expect.objectContaining({ item: expect.objectContaining({ name: field }), name: 'create' })
+      expect.objectContaining({
+        type: ACTION_TYPES.CREATE,
+        payload: {
+          item: expect.objectContaining({ name: field })
+        }
+      })
     );
   });
 

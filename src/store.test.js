@@ -1,4 +1,4 @@
-import { changePosition, reducer, selectListByFilter, FILTER_VALUES } from './store';
+import { changePosition, reducer, selectListByFilter, FILTER_VALUES, ACTION_TYPES } from './store';
 
 describe('changePosition tests', () => {
   let items = null;
@@ -41,35 +41,37 @@ describe('changePosition tests', () => {
 
 describe('reducer test', () => {
   let items = null;
+  let state = null;
   beforeEach(() => {
     items = [
       { id: '0', name: 'first', isDone: false, position: 0 },
       { id: '1', name: 'second', isDone: false, position: 1 },
       { id: '2', name: 'last', isDone: false, position: 2 }
     ];
+    state = { filterParams: { category: FILTER_VALUES[0], searchString: '' }, list: items };
   });
 
   test('remove existing item from list', () => {
     const removeItem = items[0];
-    const action = { name: 'remove', itemId: removeItem.id };
-    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const action = { type: ACTION_TYPES.REMOVE, payload: { id: removeItem.id } };
     const newItems = reducer(action, state);
-    expect(newItems).not.toEqual(items);
-    expect(newItems).not.toContain(removeItem);
+    expect(newItems.list).not.toEqual(items);
+    expect(newItems.list).not.toContain(removeItem);
   });
 
   test('remove not existing item from list', () => {
-    const action = { name: 'remove', itemId: '1000' };
-    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const action = { type: ACTION_TYPES.REMOVE, payload: { id: '1000' } };
     const newItems = reducer(action, state);
-    expect(newItems).toEqual(items);
+    expect(newItems.list).toEqual(items);
   });
 
   test('change position of second item', () => {
     const changePositionItem = items[1];
     expect(changePositionItem.position).toBe(1);
-    const action = { name: 'changePosition', itemId: changePositionItem.id, itemNumber: 1 };
-    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const action = {
+      type: ACTION_TYPES.CHANGE_POSITION,
+      payload: { id: changePositionItem.id, number: 1 }
+    };
     reducer(action, state);
     expect(changePositionItem.position).toBe(0);
   });
@@ -77,8 +79,10 @@ describe('reducer test', () => {
   test('change state of item', () => {
     const changeStateItem = items[1];
     expect(changeStateItem.isDone).toBe(false);
-    const action = { name: 'changeState', itemId: changeStateItem.id, itemIsDone: true };
-    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const action = {
+      type: ACTION_TYPES.CHANGE_STATE,
+      payload: { id: changeStateItem.id, isDone: true }
+    };
     reducer(action, state);
     expect(changeStateItem.isDone).not.toBe(false);
   });
@@ -86,25 +90,22 @@ describe('reducer test', () => {
   test('edit item', () => {
     const editItem = items[1];
     expect(editItem.name).toBe('second');
-    const action = { name: 'edit', itemId: editItem.id, itemName: 'first' };
-    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const action = { type: ACTION_TYPES.EDIT, payload: { id: editItem.id, name: 'first' } };
     reducer(action, state);
     expect(editItem.name).toBe('first');
   });
 
   test('create new item', () => {
     const newItem = { id: '3', name: 'lastLast', isDone: false, position: 3 };
-    const action = { name: 'create', item: newItem };
-    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const action = { type: ACTION_TYPES.CREATE, payload: { item: newItem } };
     const newItems = reducer(action, state);
-    expect(newItems).toContain(newItem);
+    expect(newItems.list).toContain(newItem);
   });
 
   test('pass wrong action name', () => {
-    const action = { name: 'credcdcdcdate' };
-    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const action = { type: 'credcdcdcdate' };
     const newItems = reducer(action, state);
-    expect(newItems).toEqual(items);
+    expect(newItems.list).toEqual(items);
   });
 });
 
@@ -119,42 +120,48 @@ describe('selectListByFilter tests', () => {
   });
 
   test('get done elements', () => {
-    const state = { filter: FILTER_VALUES[1], search: '', list: items };
+    const state = { filterParams: { category: FILTER_VALUES[1], searchString: '' }, list: items };
     const newItems = selectListByFilter(state);
     expect(newItems).toHaveLength(1);
     expect(newItems).toEqual(items.filter(el => el.isDone));
   });
 
   test('get all elements', () => {
-    const state = { filter: FILTER_VALUES[0], search: '', list: items };
+    const state = { filterParams: { category: FILTER_VALUES[0], searchString: '' }, list: items };
     const newItems = selectListByFilter(state);
     expect(newItems).toHaveLength(3);
     expect(newItems).toEqual(items);
   });
 
   test('get elements in progress', () => {
-    const state = { filter: FILTER_VALUES[2], search: '', list: items };
+    const state = { filterParams: { category: FILTER_VALUES[2], searchString: '' }, list: items };
     const newItems = selectListByFilter(state);
     expect(newItems).toHaveLength(2);
     expect(newItems).toEqual(items.filter(el => !el.isDone));
   });
 
   test('get done element with active filter', () => {
-    const state = { filter: FILTER_VALUES[1], search: 'first', list: items };
+    const state = {
+      filterParams: { category: FILTER_VALUES[1], searchString: 'first' },
+      list: items
+    };
     const newItems = selectListByFilter(state);
     expect(newItems).toHaveLength(1);
     expect(newItems).toContain(items[0]);
   });
 
   test('get element in progress with active filter', () => {
-    const state = { filter: FILTER_VALUES[2], search: 'second', list: items };
+    const state = {
+      filterParams: { category: FILTER_VALUES[2], searchString: 'second' },
+      list: items
+    };
     const newItems = selectListByFilter(state);
     expect(newItems).toHaveLength(1);
     expect(newItems).toContain(items[1]);
   });
 
   test('try to find not existent element', () => {
-    const state = { filter: FILTER_VALUES[2], search: '12', list: items };
+    const state = { filterParams: { category: FILTER_VALUES[2], searchString: '12' }, list: items };
     const newItems = selectListByFilter(state);
     expect(newItems).toHaveLength(0);
   });

@@ -1,6 +1,7 @@
 import { ListItem } from './ListItem';
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
+import { ACTION_TYPES } from '../../store';
 
 describe('ListItemTests', () => {
   test('pass value', () => {
@@ -25,7 +26,10 @@ describe('ListItemTests', () => {
 
     const element = screen.getByTestId('remove-button');
     fireEvent.click(element);
-    expect(dispatchHandler).toBeCalledWith({ name: 'remove', itemId: value.id });
+    expect(dispatchHandler).toBeCalledWith({
+      type: ACTION_TYPES.REMOVE,
+      payload: { id: value.id }
+    });
   });
 
   test('change position item', () => {
@@ -38,17 +42,21 @@ describe('ListItemTests', () => {
     const elementUp = screen.getByTestId('up');
     fireEvent.click(elementUp);
     expect(dispatchHandler).toBeCalledWith({
-      name: 'changePosition',
-      itemId: value.id,
-      itemNumber: 1
+      type: ACTION_TYPES.CHANGE_POSITION,
+      payload: {
+        id: value.id,
+        number: 1
+      }
     });
     //Down case
     const elementDown = screen.getByTestId('down');
     fireEvent.click(elementDown);
     expect(dispatchHandler).toBeCalledWith({
-      name: 'changePosition',
-      itemId: value.id,
-      itemNumber: -1
+      type: ACTION_TYPES.CHANGE_POSITION,
+      payload: {
+        id: value.id,
+        number: -1
+      }
     });
   });
 
@@ -78,9 +86,11 @@ describe('ListItemTests', () => {
     expect(dispatchHandler).not.toBeCalled();
     fireEvent.click(checkBox);
     expect(dispatchHandler).toBeCalledWith({
-      name: 'changeState',
-      itemId: value.id,
-      itemIsDone: !value.isDone
+      type: ACTION_TYPES.CHANGE_STATE,
+      payload: {
+        id: value.id,
+        isDone: !value.isDone
+      }
     });
   });
 });
