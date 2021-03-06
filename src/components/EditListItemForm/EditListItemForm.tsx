@@ -1,5 +1,5 @@
-import React, { useState, useRef } from 'react';
-import { Action, Item } from '../../store';
+import React, { useRef, useState } from 'react';
+import { Action, ACTION_TYPES, Item } from '../../store';
 
 interface EditListItemFormProps {
   item: Item;
@@ -15,7 +15,7 @@ export const EditListItem = ({ item, dispatch, closeItem }: EditListItemFormProp
     e.preventDefault();
     if (name !== '') {
       dispatch({
-        type: 'edit',
+        type: ACTION_TYPES.EDIT,
         payload: {
           id: item.id,
           name: name
@@ -28,7 +28,7 @@ export const EditListItem = ({ item, dispatch, closeItem }: EditListItemFormProp
   function blurHandler(e: React.FocusEvent<HTMLInputElement>) {
     if (e.relatedTarget === button.current && name !== '') {
       dispatch({
-        type: 'edit',
+        type: ACTION_TYPES.EDIT,
         payload: {
           id: item.id,
           name: name

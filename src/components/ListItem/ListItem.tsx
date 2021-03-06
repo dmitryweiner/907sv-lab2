@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { EditListItem } from '../EditListItemForm/EditListItemForm';
-import { Item, Action } from '../../store';
+import { Action, ACTION_TYPES, Item } from '../../store';
 
 interface ListItemProps {
   item: Item;
@@ -29,7 +29,7 @@ export const ListItem = ({ item, isFirst, isLast, dispatch }: ListItemProps) => 
         checked={item.isDone}
         onChange={() =>
           dispatch({
-            type: 'changeState',
+            type: ACTION_TYPES.CHANGE_STATE,
             payload: {
               id: item.id,
               isDone: !item.isDone
@@ -41,7 +41,7 @@ export const ListItem = ({ item, isFirst, isLast, dispatch }: ListItemProps) => 
         data-testid="remove-button"
         onClick={() =>
           dispatch({
-            type: 'remove',
+            type: ACTION_TYPES.REMOVE,
             payload: {
               id: item.id
             }
@@ -58,7 +58,7 @@ export const ListItem = ({ item, isFirst, isLast, dispatch }: ListItemProps) => 
           data-testid="up"
           onClick={() =>
             dispatch({
-              type: 'changePosition',
+              type: ACTION_TYPES.CHANGE_POSITION,
               payload: {
                 id: item.id,
                 number: 1
@@ -74,7 +74,7 @@ export const ListItem = ({ item, isFirst, isLast, dispatch }: ListItemProps) => 
           data-testid="down"
           onClick={() =>
             dispatch({
-              type: 'changePosition',
+              type: ACTION_TYPES.CHANGE_POSITION,
               payload: {
                 id: item.id,
                 number: -1

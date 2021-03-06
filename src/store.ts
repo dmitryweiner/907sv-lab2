@@ -1,6 +1,14 @@
 export const FILTER_VALUES = ['All', 'Done', 'Not done'];
 export type IFilterValues = typeof FILTER_VALUES;
 
+export enum ACTION_TYPES {
+  REMOVE,
+  CHANGE_POSITION,
+  CHANGE_STATE,
+  EDIT,
+  CREATE
+}
+
 export type Action =
   | ActionRemove
   | ActionChangePosition
@@ -9,14 +17,14 @@ export type Action =
   | ActionCreate;
 
 interface ActionRemove {
-  type: 'remove';
+  type: typeof ACTION_TYPES.REMOVE;
   payload: {
     id: string;
   };
 }
 
 interface ActionChangePosition {
-  type: 'changePosition';
+  type: ACTION_TYPES.CHANGE_POSITION;
   payload: {
     id: string;
     number: number;
@@ -24,7 +32,7 @@ interface ActionChangePosition {
 }
 
 interface ActionChangeState {
-  type: 'changeState';
+  type: ACTION_TYPES.CHANGE_STATE;
   payload: {
     id: string;
     isDone: boolean;
@@ -32,7 +40,7 @@ interface ActionChangeState {
 }
 
 interface ActionEdit {
-  type: 'edit';
+  type: ACTION_TYPES.EDIT;
   payload: {
     id: string;
     name: string;
@@ -40,7 +48,7 @@ interface ActionEdit {
 }
 
 interface ActionCreate {
-  type: 'create';
+  type: ACTION_TYPES.CREATE;
   payload: {
     item: Item;
   };
@@ -63,21 +71,21 @@ const initialStore = {
 
 export function reducer(action: Action, previousState: typeof initialStore = initialStore) {
   switch (action.type) {
-    case 'remove': {
+    case ACTION_TYPES.REMOVE: {
       return {
         ...previousState,
         list: [...previousState.list.filter(el => el.id !== action.payload.id)]
       };
     }
 
-    case 'changePosition': {
+    case ACTION_TYPES.CHANGE_POSITION: {
       return {
         ...previousState,
         list: changePosition(action.payload.id, action.payload.number, previousState.list)
       };
     }
 
-    case 'changeState': {
+    case ACTION_TYPES.CHANGE_STATE: {
       return {
         ...previousState,
         list: [
@@ -91,7 +99,7 @@ export function reducer(action: Action, previousState: typeof initialStore = ini
       };
     }
 
-    case 'edit': {
+    case ACTION_TYPES.EDIT: {
       return {
         ...previousState,
         list: [
@@ -105,7 +113,7 @@ export function reducer(action: Action, previousState: typeof initialStore = ini
       };
     }
 
-    case 'create': {
+    case ACTION_TYPES.CREATE: {
       return { ...previousState, list: [...previousState.list, action.payload.item] };
     }
 

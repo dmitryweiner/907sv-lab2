@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Action } from '../../store';
+import { Action, ACTION_TYPES } from '../../store';
 
 interface CreateFormProps {
   dispatch: (item: Action) => void;
@@ -23,7 +23,7 @@ export const CreateForm = ({ dispatch }: CreateFormProps) => {
       setPosition(position => position + 1);
       setItem('');
       dispatch({
-        type: 'create',
+        type: ACTION_TYPES.CREATE,
         payload: { item: newItem }
       });
     } else {
