@@ -23,8 +23,8 @@ export const CreateForm = ({ create }: CreateFormProps) => {
       setPosition(position => position + 1);
       setItem('');
       create({
-        name: 'create',
-        item: newItem
+        type: 'create',
+        payload: { item: newItem }
       });
     } else {
       alert('?');

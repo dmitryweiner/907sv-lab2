@@ -13,7 +13,9 @@ function App() {
   const [category, setCategory] = useState(FILTER_VALUES[0]);
 
   function dispatch(action: Action) {
-    setItemList(reducer(action, { list: itemsList, filter: category, search }));
+    setItemList(
+      reducer(action, { list: itemsList, filterParams: { category, searchString: search } }).list
+    );
   }
 
   function updateState(action: FilterArguments) {
@@ -40,7 +42,10 @@ function App() {
         <SearchPanel filter={updateState} />
         <br />
         <List
-          list={selectListByFilter({ list: itemsList, filter: category, search: search })}
+          list={selectListByFilter({
+            list: itemsList,
+            filterParams: { category, searchString: search }
+          })}
           dispatch={dispatch}
         />
       </div>

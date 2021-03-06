@@ -55,48 +55,62 @@ export interface Item {
 
 const initialStore = {
   list: Array<Item>(),
-  filter: FILTER_VALUES[0],
-  search: ''
+  filterParams: {
+    category: FILTER_VALUES[0],
+    searchString: ''
+  }
 };
 
 export function reducer(action: Action, previousState: typeof initialStore = initialStore) {
   switch (action.type) {
     case 'remove': {
-      return [...previousState.list.filter(el => el.id !== action.payload.id)];
+      return {
+        ...previousState,
+        list: [...previousState.list.filter(el => el.id !== action.payload.id)]
+      };
     }
 
     case 'changePosition': {
-      return changePosition(action.payload.id, action.payload.number, previousState.list);
+      return {
+        ...previousState,
+        list: changePosition(action.payload.id, action.payload.number, previousState.list)
+      };
     }
 
     case 'changeState': {
-      return [
-        ...previousState.list.map(item => {
-          if (item.id === action.payload.id) {
-            item.isDone = action.payload.isDone;
-          }
-          return item;
-        })
-      ];
+      return {
+        ...previousState,
+        list: [
+          ...previousState.list.map(item => {
+            if (item.id === action.payload.id) {
+              item.isDone = action.payload.isDone;
+            }
+            return item;
+          })
+        ]
+      };
     }
 
     case 'edit': {
-      return [
-        ...previousState.list.map(item => {
-          if (item.id === action.payload.id) {
-            item.name = action.payload.name;
-          }
-          return item;
-        })
-      ];
+      return {
+        ...previousState,
+        list: [
+          ...previousState.list.map(item => {
+            if (item.id === action.payload.id) {
+              item.name = action.payload.name;
+            }
+            return item;
+          })
+        ]
+      };
     }
 
     case 'create': {
-      return [...previousState.list, action.payload.item];
+      return { ...previousState, list: [...previousState.list, action.payload.item] };
     }
 
     default:
-      return [...previousState.list];
+      return { ...previousState };
   }
 }
 
@@ -139,12 +153,16 @@ export function changePosition(id: string, number: number, itemsList: Item[]) {
 
 export function selectListByFilter(state: typeof initialStore) {
   state.list = state.list.sort((el1, el2) => el1.position - el2.position);
-  switch (state.filter) {
+  switch (state.filterParams.category) {
     case FILTER_VALUES[1]:
-      return state.list.filter(el => el.isDone && el.name.includes(state.search));
+      return state.list.filter(
+        el => el.isDone && el.name.includes(state.filterParams.searchString)
+      );
     case FILTER_VALUES[2]:
-      return state.list.filter(el => !el.isDone && el.name.includes(state.search));
+      return state.list.filter(
+        el => !el.isDone && el.name.includes(state.filterParams.searchString)
+      );
     default:
-      return state.list.filter(el => el.name.includes(state.search));
+      return state.list.filter(el => el.name.includes(state.filterParams.searchString));
   }
 }
