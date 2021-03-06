@@ -2,10 +2,10 @@ import React, { useState } from 'react';
 import { Action } from '../../store';
 
 interface CreateFormProps {
-  create: (item: Action) => void;
+  dispatch: (item: Action) => void;
 }
 
-export const CreateForm = ({ create }: CreateFormProps) => {
+export const CreateForm = ({ dispatch }: CreateFormProps) => {
   const [item, setItem] = useState('');
   const [position, setPosition] = useState(0);
 
@@ -22,7 +22,7 @@ export const CreateForm = ({ create }: CreateFormProps) => {
       const newItem = { id: uid(), name: item, isDone: false, position: position };
       setPosition(position => position + 1);
       setItem('');
-      create({
+      dispatch({
         type: 'create',
         payload: { item: newItem }
       });

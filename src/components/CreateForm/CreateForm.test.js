@@ -5,7 +5,7 @@ import { CreateForm } from './CreateForm';
 describe('CreateForm tests', () => {
   test('create item with valid name', () => {
     const createHandler = jest.fn();
-    render(<CreateForm create={createHandler} />);
+    render(<CreateForm dispatch={createHandler} />);
     const field = 'some text';
     const input = screen.getByTestId('create-input');
     const button = screen.getByTestId('create-button');
@@ -23,7 +23,7 @@ describe('CreateForm tests', () => {
 
   test('try to create item with empty name', () => {
     const createHandler = jest.fn();
-    render(<CreateForm create={createHandler} />);
+    render(<CreateForm dispatch={createHandler} />);
 
     const field = '';
     const input = screen.queryByTestId('create-input');

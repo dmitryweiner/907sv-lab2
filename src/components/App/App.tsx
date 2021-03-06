@@ -36,7 +36,7 @@ function App() {
         <h2>Лабораторная №2. Добавляем элемент в список</h2>
       </div>
       <div>
-        <CreateForm create={dispatch} />
+        <CreateForm dispatch={dispatch} />
         <CategorySelect filterValues={FILTER_VALUES} updateCategory={updateState} />
         <br />
         <SearchPanel filter={updateState} />
