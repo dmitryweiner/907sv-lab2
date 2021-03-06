@@ -29,9 +29,11 @@ export const ListItem = ({ item, isFirst, isLast, dispatch }: ListItemProps) => 
         checked={item.isDone}
         onChange={() =>
           dispatch({
-            name: 'changeState',
-            itemId: item.id,
-            itemIsDone: !item.isDone
+            type: 'changeState',
+            payload: {
+              id: item.id,
+              isDone: !item.isDone
+            }
           })
         }
       />
@@ -39,8 +41,10 @@ export const ListItem = ({ item, isFirst, isLast, dispatch }: ListItemProps) => 
         data-testid="remove-button"
         onClick={() =>
           dispatch({
-            name: 'remove',
-            itemId: item.id
+            type: 'remove',
+            payload: {
+              id: item.id
+            }
           })
         }
       >
@@ -54,9 +58,11 @@ export const ListItem = ({ item, isFirst, isLast, dispatch }: ListItemProps) => 
           data-testid="up"
           onClick={() =>
             dispatch({
-              name: 'changePosition',
-              itemId: item.id,
-              itemNumber: 1
+              type: 'changePosition',
+              payload: {
+                id: item.id,
+                number: 1
+              }
             })
           }
         >
@@ -68,9 +74,11 @@ export const ListItem = ({ item, isFirst, isLast, dispatch }: ListItemProps) => 
           data-testid="down"
           onClick={() =>
             dispatch({
-              name: 'changePosition',
-              itemId: item.id,
-              itemNumber: -1
+              type: 'changePosition',
+              payload: {
+                id: item.id,
+                number: -1
+              }
             })
           }
         >

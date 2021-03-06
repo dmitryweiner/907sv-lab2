@@ -15,9 +15,11 @@ export const EditListItem = ({ item, dispatch, closeItem }: EditListItemFormProp
     e.preventDefault();
     if (name !== '') {
       dispatch({
-        name: 'edit',
-        itemId: item.id,
-        itemName: name
+        type: 'edit',
+        payload: {
+          id: item.id,
+          name: name
+        }
       });
     }
     closeItem();
@@ -26,9 +28,11 @@ export const EditListItem = ({ item, dispatch, closeItem }: EditListItemFormProp
   function blurHandler(e: React.FocusEvent<HTMLInputElement>) {
     if (e.relatedTarget === button.current && name !== '') {
       dispatch({
-        name: 'edit',
-        itemId: item.id,
-        itemName: name
+        type: 'edit',
+        payload: {
+          id: item.id,
+          name: name
+        }
       });
     }
     closeItem();

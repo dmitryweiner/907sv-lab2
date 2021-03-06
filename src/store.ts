@@ -9,31 +9,41 @@ export type Action =
   | ActionCreate;
 
 interface ActionRemove {
-  name: 'remove';
-  itemId: string;
+  type: 'remove';
+  payload: {
+    id: string;
+  };
 }
 
 interface ActionChangePosition {
-  name: 'changePosition';
-  itemId: string;
-  itemNumber: number;
+  type: 'changePosition';
+  payload: {
+    id: string;
+    number: number;
+  };
 }
 
 interface ActionChangeState {
-  name: 'changeState';
-  itemId: string;
-  itemIsDone: boolean;
+  type: 'changeState';
+  payload: {
+    id: string;
+    isDone: boolean;
+  };
 }
 
 interface ActionEdit {
-  name: 'edit';
-  itemId: string;
-  itemName: string;
+  type: 'edit';
+  payload: {
+    id: string;
+    name: string;
+  };
 }
 
 interface ActionCreate {
-  name: 'create';
-  item: Item;
+  type: 'create';
+  payload: {
+    item: Item;
+  };
 }
 
 export interface Item {
@@ -50,20 +60,20 @@ const initialStore = {
 };
 
 export function reducer(action: Action, previousState: typeof initialStore = initialStore) {
-  switch (action.name) {
+  switch (action.type) {
     case 'remove': {
-      return [...previousState.list.filter(el => el.id !== action.itemId)];
+      return [...previousState.list.filter(el => el.id !== action.payload.id)];
     }
 
     case 'changePosition': {
-      return changePosition(action.itemId, action.itemNumber, previousState.list);
+      return changePosition(action.payload.id, action.payload.number, previousState.list);
     }
 
     case 'changeState': {
       return [
         ...previousState.list.map(item => {
-          if (item.id === action.itemId) {
-            item.isDone = action.itemIsDone;
+          if (item.id === action.payload.id) {
+            item.isDone = action.payload.isDone;
           }
           return item;
         })
@@ -73,8 +83,8 @@ export function reducer(action: Action, previousState: typeof initialStore = ini
     case 'edit': {
       return [
         ...previousState.list.map(item => {
-          if (item.id === action.itemId) {
-            item.name = action.itemName;
+          if (item.id === action.payload.id) {
+            item.name = action.payload.name;
           }
           return item;
         })
@@ -82,7 +92,7 @@ export function reducer(action: Action, previousState: typeof initialStore = ini
     }
 
     case 'create': {
-      return [...previousState.list, action.item];
+      return [...previousState.list, action.payload.item];
     }
 
     default:
