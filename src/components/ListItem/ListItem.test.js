@@ -1,20 +1,21 @@
-import ListItem from 'ListItem.js';
+import ListItem from './ListItem';
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-const clickHandler = jest.fn();
+const deleteHandler = jest.fn();
+const listItemTitle = "I'm title";
+const listItemId = "I'm ListItem delete button";
 
 describe(' Тесты ListItem ', () => {
   test(' Отображение title ', () => {
-    render(<ListItem title="I'm title" />);
-    const expectedTitle = screen.getByText("I'm title");
-    expect(expectedTitle).toBeInTheDocument();
+    render(<ListItem title={listItemTitle} />);
+    expect(screen.getByText(listItemTitle)).toBeInTheDocument();
   });
   test(' Отображение кнопки, вызов handleClick с id ', () => {
-    render(<ListItem id="I'm id" clickHandler={clickHandler} />);
-    const button = screen.getByTestId("I'm id");
+    render(<ListItem id={listItemId} deleteHandler={deleteHandler} />);
+    const button = screen.getByTestId(listItemId);
     expect(button).toBeInTheDocument();
-    expect(clickHandler).not.toBeCalled();
+    expect(deleteHandler).not.toBeCalled();
     fireEvent.click(button);
-    expect(clickHandler).toBeCalledWith("I'm id");
+    expect(deleteHandler).toBeCalledWith(listItemId);
   });
 });
