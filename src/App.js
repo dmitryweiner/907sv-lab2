@@ -12,7 +12,7 @@ function App() {
       title: value
     };
     if (value.length === 0) {
-      alert('Пусто ');
+      alert('Пусто');
     } else {
       setList([...list, newElement]);
     }
