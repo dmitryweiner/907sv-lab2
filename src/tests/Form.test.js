@@ -1,15 +1,18 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import Form from '../components/Form';
+import { screen, render, fireEvent } from '@testing-library/react';
+import Form from './Form';
 
-test('can enter text and submit', () => {
+test('form test', () => {
+  const text = '123';
   const handleSubmit = jest.fn();
-  const field = 'field contents';
+  // eslint-disable-next-line react/react-in-jsx-scope
   render(<Form handleSubmit={handleSubmit} />);
-  const input = screen.getByTestId('input');
-  const form = screen.getByTestId('form');
-  fireEvent.input(input, { target: { value: field } }); // ввод в поле
+  fireEvent.input(screen.getByTestId('input'), {
+    target: {
+      value: text
+    }
+  });
   expect(handleSubmit).not.toBeCalled();
-  fireEvent.submit(form); // отправка формы
-  expect(handleSubmit).toBeCalledWith(expect.objectContaining({ field }));
+  fireEvent.submit(screen.getByTestId('form'));
+  expect(handleSubmit).toBeCalledWith(text);
+  expect(screen.getByTestId('input')).toHaveValue('');
 });

@@ -1,15 +1,16 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 export default function Form({ handleSubmit }) {
-  const [field, setField] = useState('');
-  function handleSubmitInner(e) {
+  const [value, setValue] = React.useState('');
+  function submitHandler(e) {
     e.preventDefault();
-    handleSubmit({ field });
+    handleSubmit(value);
+    setValue('');
   }
   return (
-    <form data-testid="form" onSubmit={handleSubmitInner}>
-      <input data-testid="input" value={field} onChange={e => setField(e.target.value)} />
-      <button type="submit">Добавить</button>
+    <form data-testid="form" onSubmit={submitHandler}>
+      <input data-testid="input" value={value} onChange={e => setValue(e.target.value)} />
+      <button type="submit">Сохранить</button>
     </form>
   );
 }

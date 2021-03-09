@@ -1,23 +1,33 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import Button from './components/Button';
-import List from './components/List';
 import Form from './components/Form';
+import List from './components/List';
 
 function App() {
+  const [list, setList] = useState([]);
+
+  function addedNum(value) {
+    const newElement = {
+      id: Math.random(),
+      title: value
+    };
+    if (value.length === 0) {
+      alert('Пусто');
+    } else {
+      setList([...list, newElement]);
+    }
+  }
+
+  function clearTask(index) {
+    list.splice(index, 1);
+    setList([...list]);
+  }
+
   return (
-    <div className="wrapper">
-      <div>
-        <h1>Список дел</h1>
-        <h2>Лабораторная №2. Динамический список</h2>
-      </div>
-      <div>
-        <Form></Form>
-        <Button title={'Добавить'}></Button>
-        <List />
-      </div>
-    </div>
+    <>
+      <Form handleSubmit={addedNum} />
+      <List list={list} deleteHandler={clearTask} />
+    </>
   );
 }
-
 export default App;

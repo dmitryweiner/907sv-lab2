@@ -1,18 +1,15 @@
 import React from 'react';
-import Button from './Button';
+import ListItem from './ListItem';
 
-export default function List({ list }) {
-  function renderList() {
-    if (!list || !list.length) {
-      return 'Список пуст';
-    }
-    return list.map((item, index) => (
-      <li key={index} data-testid="list-item">
-        {item}
-        <Button title={'[x]'}></Button>
-      </li>
-    ));
+export default function List({ list, deleteHandler }) {
+  if (list.length === 0) {
+    return 'Список пуст';
   }
-
-  return <ul data-testid="list">{renderList()}</ul>;
+  return (
+    <ul>
+      {list.map(item => (
+        <ListItem id={item.id} key={item.id} title={item.title} deleteHandler={deleteHandler} />
+      ))}
+    </ul>
+  );
 }
