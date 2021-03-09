@@ -12,7 +12,7 @@ describe(' Тесты ListItem ', () => {
   });
   test(' Отображение кнопки, вызов handleClick с id ', () => {
     render(<ListItem id={listItemId} deleteHandler={deleteHandler} />);
-    const button = screen.getByTestId(listItemId);
+    const button = screen.getByTestId('delete-button');
     expect(button).toBeInTheDocument();
     expect(deleteHandler).not.toBeCalled();
     fireEvent.click(button);
