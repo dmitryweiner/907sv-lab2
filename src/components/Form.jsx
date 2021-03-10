@@ -5,6 +5,10 @@ export default function Form({ handleSubmit }) {
 
   function submitHandler(e) {
     e.preventDefault();
+    if (value.length === 0) {
+      alert('Пусто');
+      return;
+    }
     handleSubmit(value);
     setValue('');
   }

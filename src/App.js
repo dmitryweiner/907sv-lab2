@@ -11,9 +11,6 @@ function App() {
       id: Math.random().toString(36).substr(2),
       title: value
     };
-    if (value.length === 0) {
-      alert('Пусто');
-    }
     setList([...list, newElement]);
   }
 
