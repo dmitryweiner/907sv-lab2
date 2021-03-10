@@ -5,6 +5,10 @@ export default function ToDoForm({ addition }) {
 
     function handleSubmit(e) {
         e.preventDefault();
+        if (text.length === 0) {
+            alert('Enter test');
+            return;
+        }
         addition(text);
         setText('');
     }

@@ -7,9 +7,6 @@ export default function App() {
     const [tasks, setTasks] = useState([]);
 
     function addition(text) {
-        if (text.length === 0) {
-            return;
-        }
         setTasks([...tasks, text]);
     }
 
