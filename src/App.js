@@ -11,16 +11,11 @@ function App() {
       id: Math.random(),
       title: value
     };
-    if (value.length === 0) {
-      alert('Пусто');
-    } else {
-      setList([...list, newElement]);
-    }
+    setList([...list, newElement]);
   }
 
-  function clearTask(index) {
-    list.splice(index, 1);
-    setList([...list]);
+  function clearTask(id) {
+    setList([...list.filter(element => element.id !== id)]);
   }
 
   return (

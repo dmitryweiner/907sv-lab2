@@ -1,10 +1,10 @@
 import { screen, render, fireEvent } from '@testing-library/react';
 import Form from './Form';
+import React from 'react';
 
 test('form test', () => {
   const text = '123';
   const handleSubmit = jest.fn();
-  // eslint-disable-next-line react/react-in-jsx-scope
   render(<Form handleSubmit={handleSubmit} />);
   fireEvent.input(screen.getByTestId('input'), {
     target: {
