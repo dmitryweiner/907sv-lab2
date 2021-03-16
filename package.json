@@ -25,6 +25,7 @@
     "build": "react-scripts build",
     "test": "react-scripts test",
     "lint": "eslint src/",
+    "test": "react-scripts test",
     "lint-fix": "eslint src/ --fix",
     "prettier": "prettier --write \"src/**/*.(js|jsx|ts|tsx)\""
   },
