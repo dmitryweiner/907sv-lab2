@@ -3,7 +3,7 @@ import ListItem from '../ListItem/ListItem';
 
 function List({ list, deleteHandler }) {
   if (list.length === 0) {
-    return <>There are no elements yet (-_-)</>;
+    return <>There are no elements yet (￣︿￣)</>;
   }
   return (
     <ul>

@@ -29,8 +29,7 @@ describe(' Тесты List ', () => {
     expect(deleteHandler).toBeCalledTimes(list.length);
   });
   test(' Отображение пустого списка, вывод надписи ', () => {
-    const list = [];
-    render(<List list={list} delteHandler={deleteHandler} />);
-    expect(screen.getByText('There are no elements yet (-_-)')).toBeInTheDocument();
+    render(<List list={[]} delteHandler={deleteHandler} />);
+    expect(screen.getByText('There are no elements yet (￣︿￣)')).toBeInTheDocument();
   });
 });
