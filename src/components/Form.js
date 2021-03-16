@@ -4,8 +4,13 @@ export default function Form({ handleSubmit }) {
   const [value, setValue] = React.useState('');
   function submitHandler(e) {
     e.preventDefault();
-    handleSubmit(value);
-    setValue('');
+    if (value.trim() == '') {
+      alert('Ты чё, дурак, 6jl@#%');
+      setValue('');
+    } else {
+      handleSubmit(value);
+      setValue('');
+    }
   }
   return (
     <form data-testid="form" onSubmit={submitHandler}>
