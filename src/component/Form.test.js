@@ -13,3 +13,13 @@ test('can enter text and submit', () => {
   fireEvent.submit(form); // отправка формы
   expect(handleSubmit).toBeCalledWith(expect.objectContaining({ field }));
 });
+test('can enter text and submit', () => {
+  const handleSubmit = jest.fn();
+  render(<Form handleSubmit={handleSubmit} />);
+  const input = screen.getByTestId('input');
+  const form = screen.getByTestId('form');
+  fireEvent.input(input, { target: { value: '' } }); // ввод в поле
+  expect(handleSubmit).not.toBeCalled();
+  fireEvent.submit(form); // отправка формы
+  expect(handleSubmit).not.toBeCalled();
+});
