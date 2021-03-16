@@ -1,7 +1,20 @@
 import React from 'react';
 import './App.css';
+import List from './component/List';
+import Form from './component/Form';
 
 function App() {
+  const [list, setList] = React.useState([]);
+
+  function handleSubmit({ field }) {
+    setList([...list, field]);
+  }
+
+  function remove(index) {
+    list.splice(index, 1);
+    setList([...list]);
+  }
+
   return (
     <div className="wrapper">
       <div>
@@ -9,26 +22,8 @@ function App() {
         <h2>Лабораторная №2. Динамический список</h2>
       </div>
       <div>
-        <input type="text" />
-        <button>Добавить</button>
-        <ul>
-          <li>
-            Купить картошки
-            <button>[x]</button>
-          </li>
-          <li>
-            Помыть пол
-            <button>[x]</button>
-          </li>
-          <li>
-            Покормить рыб
-            <button>[x]</button>
-          </li>
-          <li>
-            Выгулять кошку
-            <button>[x]</button>
-          </li>
-        </ul>
+        <List list={list} remove={remove} />
+        <Form handleSubmit={handleSubmit} />
       </div>
     </div>
   );
