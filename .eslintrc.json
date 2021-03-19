@@ -17,6 +17,7 @@
     "prettier/prettier": ["error"],
     "react/prop-types": "off",
     "comma-dangle": "off",
-    "linebreak-style": "off"
+    "linebreak-style": "off",
+    "react/react-in-jsx-scope": "off"
   }
 }
