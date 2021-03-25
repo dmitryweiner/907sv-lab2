@@ -16,5 +16,5 @@ test('Форма позволяет вводить и вызывает обра�
   fireEvent.click(screen.getByTestId('form'));
   expect(handleSubmit).not.toBeCalledWith(text);
 
-  // expect(screen.getByTestId('input')).toHaveValue('');
+  expect(screen.getByTestId('input')).toHaveValue(text);
 });

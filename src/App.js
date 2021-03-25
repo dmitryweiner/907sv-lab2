@@ -26,28 +26,6 @@ function App() {
         <List list={list} deleteHandler={index => remove(index)} />
 
         <Item />
-        {/*<div>*/}
-        {/*  <input type="text" />*/}
-        {/*  <button>Добавить</button>*/}
-        {/*  <ul>*/}
-        {/*    <li>*/}
-        {/*      Купить картошки*/}
-        {/*      <button>[x]</button>*/}
-        {/*    </li>*/}
-        {/*    <li>*/}
-        {/*      Помыть пол*/}
-        {/*      <button>[x]</button>*/}
-        {/*    </li>*/}
-        {/*    <li>*/}
-        {/*      Покормить рыб*/}
-        {/*      <button>[x]</button>*/}
-        {/*    </li>*/}
-        {/*    <li>*/}
-        {/*      Выгулять кошку*/}
-        {/*      <button>[x]</button>*/}
-        {/*    </li>*/}
-        {/*  </ul>*/}
-        {/*</div>*/}
       </div>
     </>
   );
