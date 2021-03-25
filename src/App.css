@@ -1,8 +1,10 @@
 .wrapper {
+    background-color: #9bffe5;
     width: 900px;
     margin: 0 auto;
 }
 
 .wrapper div {
+    display: block;
     margin: 10px;
 }
