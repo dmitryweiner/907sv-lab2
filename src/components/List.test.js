@@ -1,5 +1,6 @@
 import { render, screen, fireEvent } from '@testing-library/react';
 import List from './List';
+import React from 'react';
 
 const list = [
   {
@@ -12,7 +13,7 @@ const list = [
   },
   {
     id: 3,
-    text: '123'
+    text: '12d3'
   }
 ];
 
