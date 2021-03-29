@@ -1,15 +1,17 @@
 import React, { useState } from 'react';
 
 export default function Form({ handleSubmit }) {
-  const [field, setField] = useState('');
+  const [value, setValue] = useState('');
+
   function handleSubmitInner(e) {
     e.preventDefault();
-    handleSubmit({ field });
+    handleSubmit(value);
+    setValue('');
   }
   return (
     <form data-testid="form" onSubmit={handleSubmitInner}>
-      <input data-testid="input" value={field} onChange={e => setField(e.target.value)} />
-      <button type="submit">Submit</button>
+      <input data-testid="input" value={value} onChange={e => setValue(e.target.value)} />
+      <button type="submit">Save</button>
     </form>
   );
 }

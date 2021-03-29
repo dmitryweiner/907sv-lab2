@@ -1,3 +1,5 @@
+import React from 'react';
+
 export default function ListItem({ text, id, deleteHandler }) {
   return (
     <li>
