@@ -1,36 +1,30 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
+import Form from './components/Form';
+import List from './components/List';
 
 function App() {
+  const [list, setList] = useState([]);
+
+  function add(value) {
+    const newEl = {
+      id: Math.random().toString(),
+      text: value
+    };
+    setList([...list, newEl]);
+  }
+
+  function del(index) {
+    list.splice(index, 1);
+    setList([...list]);
+  }
+
   return (
-    <div className="wrapper">
-      <div>
-        <h1>Список дел</h1>
-        <h2>Лабораторная №2. Динамический список</h2>
-      </div>
-      <div>
-        <input type="text" />
-        <button>Добавить</button>
-        <ul>
-          <li>
-            Купить картошки
-            <button>[x]</button>
-          </li>
-          <li>
-            Помыть пол
-            <button>[x]</button>
-          </li>
-          <li>
-            Покормить рыб
-            <button>[x]</button>
-          </li>
-          <li>
-            Выгулять кошку
-            <button>[x]</button>
-          </li>
-        </ul>
-      </div>
-    </div>
+    <>
+      <h3>Список делов</h3>
+      <Form handleSubmit={value => add(value)} />
+      <List list={list} deleteHandler={index => del(index)} />
+    </>
   );
 }
 
